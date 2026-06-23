@@ -1,0 +1,63 @@
+version: 1
+
+defaults:
+  language: "zh-CN"
+  output_mode: "prompt_pack"
+  new_page_default_forms:
+    - "daily scrapbook page"
+    - "hybrid scrapbook-comic page"
+  aspect_ratios:
+    phone_page: "9:16"
+    wide_multi_day_spread: "3:1"
+    desktop_spread: "16:9"
+    square_social: "1:1"
+    print_page: "A4/A5"
+  visual_priority: "memory-first sticker scrapbook and mini-comic authorship"
+  text_policy: "large readable Chinese labels; exact text listed outside prompts"
+
+features:
+  parse_existing_generated_image: true
+  create_editable_object_manifest: true
+  support_localized_revision: true
+  support_character_consistency: true
+  support_private_character_profile: true
+  support_public_safe_generic_characters: true
+  support_prompt_only_mode: true
+  support_image_generation_when_available: true
+  support_local_web_gui: true
+  support_gui_template_future: true
+
+gui:
+  server_script: "scripts/server.py"
+  app_entry: "assets/gui/index.html"
+  blank_project: "assets/gui/blank-project.json"
+  demo_project: "assets/gui/demo-project.json"
+  default_host: "127.0.0.1"
+  default_port: 8765
+  default_project_file: "sticker-travel-scrapbook-project.json"
+  default_project_mode: "blank"
+  image_generation_provider: "openai_images_api_when_OPENAI_API_KEY_is_set"
+  image_generation_endpoint: "/api/generate-image"
+  capabilities:
+    - "material library"
+    - "page preview"
+    - "editable object manifest editor"
+    - "page-level image prompt builder"
+    - "direct image generation when API key is configured"
+    - "generated image gallery"
+    - "project JSON import/export"
+    - "prompt pack export"
+
+object_id_format:
+  image: "P{page}-IMG{number}"
+  text: "P{page}-TXT{number}"
+  character: "P{page}-CHR{number}"
+  sticker: "P{page}-STK{number}"
+  panel: "P{page}-PNL{number}"
+  background: "P{page}-BG{number}"
+
+private_paths:
+  character_profile: "private/character-profile.local.yaml"
+  character_references: "assets/character-references/"
+  style_references: "assets/style-references/"
+  source_materials: "assets/source-materials/"

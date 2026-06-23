@@ -1,0 +1,947 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>粘贴式旅行手帐生成台</title>
+  <style>
+    :root {
+      --paper: #f7efe0;
+      --panel: #fffaf0;
+      --ink: #1f2933;
+      --muted: #66717f;
+      --line: #d6c5a8;
+      --red: #b75b4a;
+      --blue: #3d6f9f;
+      --green: #4f7d68;
+      --violet: #7157a3;
+      --shadow: rgba(35, 25, 12, .14);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: Inter, "Segoe UI", "Microsoft YaHei", Arial, sans-serif;
+      letter-spacing: 0;
+    }
+
+    button, input, textarea, select { font: inherit; }
+
+    .app {
+      min-height: 100vh;
+      display: grid;
+      grid-template-rows: 58px 1fr;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 0 14px;
+      background: #fff8ea;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .brand {
+      font-size: 18px;
+      font-weight: 850;
+      white-space: nowrap;
+    }
+
+    .project-title {
+      flex: 1;
+      min-width: 150px;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      border-radius: 6px;
+      padding: 8px 10px;
+    }
+
+    .btn {
+      border: 1px solid #ac9b7c;
+      border-radius: 6px;
+      background: #fffdf7;
+      color: var(--ink);
+      padding: 8px 10px;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .btn.primary {
+      background: var(--ink);
+      color: #fffaf0;
+      border-color: var(--ink);
+    }
+
+    .btn.danger {
+      background: var(--red);
+      color: #fffaf0;
+      border-color: var(--red);
+    }
+
+    .workspace {
+      display: grid;
+      grid-template-columns: minmax(270px, 330px) minmax(480px, 1fr) minmax(340px, 400px);
+      min-height: 0;
+    }
+
+    .panel {
+      min-height: 0;
+      overflow: auto;
+      padding: 14px;
+      border-right: 1px solid var(--line);
+    }
+
+    .panel:last-child {
+      border-right: 0;
+      border-left: 1px solid var(--line);
+    }
+
+    .canvas-wrap {
+      min-height: 0;
+      overflow: auto;
+      padding: 18px;
+      background:
+        linear-gradient(rgba(61, 111, 159, .06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(61, 111, 159, .06) 1px, transparent 1px),
+        #fbf3df;
+      background-size: 24px 24px;
+    }
+
+    h2 {
+      margin: 6px 0 10px;
+      font-size: 15px;
+    }
+
+    .help {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.55;
+    }
+
+    .field {
+      display: grid;
+      gap: 6px;
+      margin-bottom: 10px;
+    }
+
+    .field label {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 750;
+    }
+
+    .field input,
+    .field textarea,
+    .field select {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: #fffdf7;
+      color: var(--ink);
+      padding: 8px;
+    }
+
+    textarea {
+      min-height: 84px;
+      resize: vertical;
+      line-height: 1.45;
+    }
+
+    .prompt-box {
+      min-height: 190px;
+      font-family: Consolas, "Cascadia Mono", monospace;
+      font-size: 12px;
+    }
+
+    .stack {
+      display: grid;
+      gap: 8px;
+    }
+
+    .row {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .divider {
+      height: 1px;
+      background: var(--line);
+      margin: 14px 0;
+    }
+
+    .card {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(255, 250, 240, .78);
+      padding: 10px;
+    }
+
+    .card.clickable {
+      cursor: pointer;
+    }
+
+    .card.selected {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 2px rgba(61, 111, 159, .18);
+    }
+
+    .muted {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    .tag {
+      display: inline-flex;
+      height: 20px;
+      align-items: center;
+      border-radius: 999px;
+      padding: 0 8px;
+      color: #fff;
+      background: var(--blue);
+      font-size: 11px;
+      font-weight: 850;
+    }
+
+    .tag.IMG { background: var(--blue); }
+    .tag.TXT { background: var(--red); }
+    .tag.CHR { background: var(--violet); }
+    .tag.STK { background: var(--green); }
+    .tag.PNL { background: #9f6b3d; }
+    .tag.BG { background: #6f7174; }
+
+    .tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+    }
+
+    .tab {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--panel);
+      padding: 7px 12px;
+      cursor: pointer;
+    }
+
+    .tab.active {
+      background: var(--red);
+      color: #fffaf0;
+      border-color: var(--red);
+    }
+
+    .page {
+      min-height: 680px;
+      border: 2px solid var(--ink);
+      border-radius: 8px;
+      background:
+        radial-gradient(circle at 10% 12%, rgba(245, 215, 123, .35), transparent 18%),
+        radial-gradient(circle at 90% 14%, rgba(61, 111, 159, .20), transparent 16%),
+        #fff8e7;
+      box-shadow: 0 14px 40px var(--shadow);
+      padding: 22px;
+    }
+
+    .page-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      margin-bottom: 16px;
+    }
+
+    .badge {
+      display: inline-block;
+      transform: rotate(-2deg);
+      background: var(--red);
+      color: #fffaf0;
+      border-radius: 7px;
+      padding: 10px 14px;
+      font-size: 28px;
+      font-weight: 900;
+      box-shadow: 0 4px 0 rgba(0,0,0,.08);
+    }
+
+    .page-meta {
+      max-width: 48%;
+      text-align: right;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .object-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+      gap: 14px;
+    }
+
+    .scrap-object {
+      min-height: 128px;
+      border: 2px solid rgba(31, 41, 51, .86);
+      border-radius: 8px;
+      background: #fffdf7;
+      padding: 10px;
+      cursor: pointer;
+      display: grid;
+      align-content: start;
+      gap: 8px;
+      transform: rotate(var(--tilt, -1deg));
+      box-shadow: 0 6px 0 rgba(0,0,0,.06);
+    }
+
+    .scrap-object:nth-child(2n) { --tilt: 1.1deg; }
+    .scrap-object:nth-child(3n) { --tilt: -2deg; }
+    .scrap-object.selected { outline: 3px solid var(--blue); outline-offset: 3px; }
+
+    .empty {
+      min-height: 440px;
+      display: grid;
+      place-items: center;
+      border: 2px dashed #b9a98c;
+      border-radius: 8px;
+      color: var(--muted);
+      text-align: center;
+      padding: 24px;
+    }
+
+    .preview {
+      width: 100%;
+      max-height: 160px;
+      object-fit: cover;
+      border-radius: 6px;
+      border: 4px solid #fff;
+      box-shadow: 0 2px 8px rgba(0,0,0,.12);
+    }
+
+    .generated-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      gap: 8px;
+    }
+
+    .generated-grid img {
+      width: 100%;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      background: var(--panel);
+    }
+
+    .status {
+      min-height: 28px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.45;
+      white-space: pre-wrap;
+    }
+
+    @media (max-width: 1100px) {
+      .workspace { grid-template-columns: 1fr; }
+      .panel, .panel:last-child {
+        border-right: 0;
+        border-left: 0;
+        border-bottom: 1px solid var(--line);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="brand">粘贴式旅行手帐生成台</div>
+      <input id="projectTitle" class="project-title" aria-label="Project title">
+      <button id="newBtn" class="btn" type="button">新建空白</button>
+      <button id="demoBtn" class="btn" type="button">载入示例</button>
+      <button id="saveBtn" class="btn primary" type="button">保存</button>
+      <button id="importBtn" class="btn" type="button">导入 JSON</button>
+      <button id="exportBtn" class="btn" type="button">导出 JSON</button>
+      <input id="importFile" type="file" accept="application/json,.json" hidden>
+    </header>
+
+    <main class="workspace">
+      <aside class="panel">
+        <h2>1. 素材与需求</h2>
+        <p class="help">从空白开始。先写旅行主题和想要的手帐风格，再添加照片、票根、备注或角色参考。</p>
+
+        <div class="field">
+          <label for="projectBrief">旅行内容</label>
+          <textarea id="projectBrief" placeholder="例如：上海端午三日游，Day1 城市乐园夜游，Day2 清吧和电影，Day3 上海博物馆东馆。"></textarea>
+        </div>
+
+        <div class="field">
+          <label for="styleBible">风格设定</label>
+          <textarea id="styleBible"></textarea>
+        </div>
+
+        <div class="divider"></div>
+        <h2>添加素材</h2>
+        <div class="field">
+          <label for="materialType">类型</label>
+          <select id="materialType">
+            <option>photo</option>
+            <option>ticket</option>
+            <option>note</option>
+            <option>map</option>
+            <option>style reference</option>
+            <option>character reference</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="materialLabel">标签</label>
+          <input id="materialLabel" placeholder="例如：Day 3 博物馆手机合影">
+        </div>
+        <div class="field">
+          <label for="materialNote">备注</label>
+          <textarea id="materialNote" placeholder="希望这张素材放在哪里？要替换哪个槽位？"></textarea>
+        </div>
+        <div class="field">
+          <label for="materialFile">图片</label>
+          <input id="materialFile" type="file" accept="image/*">
+        </div>
+        <button id="addMaterialBtn" class="btn primary" type="button">添加素材</button>
+
+        <div class="divider"></div>
+        <div id="materialsList" class="stack"></div>
+      </aside>
+
+      <section class="canvas-wrap">
+        <div class="row" style="justify-content:space-between;margin-bottom:12px;">
+          <div id="pageTabs" class="tabs"></div>
+          <div class="row">
+            <button id="addPageBtn" class="btn" type="button">新增页</button>
+            <button id="addObjectBtn" class="btn" type="button">新增对象</button>
+          </div>
+        </div>
+
+        <article class="page">
+          <div class="page-head">
+            <div id="pageBadge" class="badge">DAY 1</div>
+            <div id="pageMeta" class="page-meta"></div>
+          </div>
+          <div id="objectCanvas"></div>
+        </article>
+      </section>
+
+      <aside class="panel">
+        <h2>2. 页面对象</h2>
+        <p class="help">点击对象后可编辑。对象 ID 是后续局部修改和生图控制的关键。</p>
+        <div id="objectsList" class="stack"></div>
+
+        <div class="divider"></div>
+        <h2>对象编辑</h2>
+        <div id="emptyInspector" class="muted">当前没有选中对象。</div>
+        <div id="inspector" hidden>
+          <div class="field">
+            <label for="objId">Object ID</label>
+            <input id="objId">
+          </div>
+          <div class="field">
+            <label for="objType">类型</label>
+            <select id="objType">
+              <option>IMG</option>
+              <option>TXT</option>
+              <option>CHR</option>
+              <option>STK</option>
+              <option>PNL</option>
+              <option>BG</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="objArea">区域</label>
+            <input id="objArea">
+          </div>
+          <div class="field">
+            <label for="objContent">内容</label>
+            <textarea id="objContent"></textarea>
+          </div>
+          <div class="field">
+            <label for="objSource">来源</label>
+            <input id="objSource">
+          </div>
+          <div class="field">
+            <label for="objRule">编辑规则</label>
+            <textarea id="objRule"></textarea>
+          </div>
+          <div class="row">
+            <button id="applyObjectBtn" class="btn primary" type="button">应用</button>
+            <button id="duplicateObjectBtn" class="btn" type="button">复制</button>
+            <button id="deleteObjectBtn" class="btn danger" type="button">删除</button>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+        <h2>3. 生图与结果</h2>
+        <p class="help">先生成当前页 prompt；如果后端环境配置了 `OPENAI_API_KEY`，可以直接在这里生图。</p>
+        <div class="row">
+          <select id="imageModel" style="flex:1;min-width:130px;">
+            <option>gpt-image-2</option>
+            <option>gpt-image-1</option>
+          </select>
+          <select id="imageSize" style="flex:1;min-width:120px;">
+            <option>1024x1536</option>
+            <option>1536x1024</option>
+            <option>1024x1024</option>
+          </select>
+          <select id="imageQuality" style="flex:1;min-width:90px;">
+            <option>medium</option>
+            <option>low</option>
+            <option>high</option>
+          </select>
+        </div>
+        <div class="field" style="margin-top:10px;">
+          <label for="generationPrompt">当前页生图 Prompt</label>
+          <textarea id="generationPrompt" class="prompt-box"></textarea>
+        </div>
+        <div class="row">
+          <button id="buildPromptBtn" class="btn" type="button">生成当前页 Prompt</button>
+          <button id="generateImageBtn" class="btn primary" type="button">通过 API 生图</button>
+          <button id="exportPromptBtn" class="btn" type="button">导出 Prompt</button>
+        </div>
+        <div id="generationStatus" class="status" style="margin-top:8px;"></div>
+        <div class="divider"></div>
+        <div id="generatedImages" class="generated-grid"></div>
+      </aside>
+    </main>
+  </div>
+
+  <script>
+    const $ = (id) => document.getElementById(id);
+    const state = { project: null, activePageId: null, selectedObjectId: null };
+
+    function blankProject() {
+      return {
+        schemaVersion: 1,
+        title: "新的旅行手帐项目",
+        description: "",
+        styleBible: "东亚粘贴式旅行手帐 + 小漫画日记；白边照片贴纸、手写中文、票根卡片、对话气泡、角色一致。",
+        characters: [],
+        materials: [],
+        generatedImages: [],
+        pages: [{ id: "P1", title: "DAY 1", form: "daily scrapbook page", aspect: "1024x1536", objects: [] }]
+      };
+    }
+
+    async function loadProject() {
+      try {
+        const res = await fetch("/api/project");
+        const data = await res.json();
+        state.project = data.project || blankProject();
+      } catch {
+        state.project = JSON.parse(localStorage.getItem("stickerTravelScrapbookProject") || "null") || blankProject();
+      }
+      ensureProjectShape();
+      state.activePageId = state.project.pages[0]?.id || null;
+      state.selectedObjectId = state.project.pages[0]?.objects?.[0]?.id || null;
+      render();
+    }
+
+    function ensureProjectShape() {
+      state.project.materials ||= [];
+      state.project.generatedImages ||= [];
+      state.project.pages ||= [];
+      if (!state.project.pages.length) state.project.pages.push(blankProject().pages[0]);
+      state.project.pages.forEach(page => page.objects ||= []);
+    }
+
+    async function saveProject() {
+      state.project.title = $("projectTitle").value.trim() || state.project.title;
+      state.project.description = $("projectBrief").value.trim();
+      state.project.styleBible = $("styleBible").value.trim();
+      localStorage.setItem("stickerTravelScrapbookProject", JSON.stringify(state.project));
+      await fetch("/api/project", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ project: state.project })
+      }).catch(() => {});
+      setStatus("已保存项目。");
+    }
+
+    function activePage() {
+      return state.project.pages.find(p => p.id === state.activePageId) || state.project.pages[0];
+    }
+
+    function selectedObject() {
+      const page = activePage();
+      return page?.objects.find(o => o.id === state.selectedObjectId) || null;
+    }
+
+    function render() {
+      $("projectTitle").value = state.project.title || "";
+      $("projectBrief").value = state.project.description || "";
+      $("styleBible").value = state.project.styleBible || "";
+      renderMaterials();
+      renderTabs();
+      renderCanvas();
+      renderObjects();
+      renderInspector();
+      renderGeneratedImages();
+    }
+
+    function renderMaterials() {
+      const list = $("materialsList");
+      list.innerHTML = "";
+      if (!state.project.materials.length) {
+        list.innerHTML = `<div class="muted">还没有素材。先添加照片、票根、备注或风格参考。</div>`;
+        return;
+      }
+      state.project.materials.forEach(mat => {
+        const node = document.createElement("div");
+        node.className = "card";
+        node.innerHTML = `
+          <div class="row"><span class="tag">${escapeHtml(mat.type || "material")}</span><strong>${escapeHtml(mat.label || mat.id)}</strong></div>
+          <div class="muted">${escapeHtml(mat.note || "")}</div>
+          ${mat.dataUrl ? `<img class="preview" src="${mat.dataUrl}" alt="">` : ""}
+        `;
+        list.appendChild(node);
+      });
+    }
+
+    function renderTabs() {
+      const tabs = $("pageTabs");
+      tabs.innerHTML = "";
+      state.project.pages.forEach(page => {
+        const btn = document.createElement("button");
+        btn.className = "tab" + (page.id === state.activePageId ? " active" : "");
+        btn.type = "button";
+        btn.textContent = page.title || page.id;
+        btn.onclick = () => {
+          state.activePageId = page.id;
+          state.selectedObjectId = page.objects[0]?.id || null;
+          render();
+        };
+        tabs.appendChild(btn);
+      });
+    }
+
+    function renderCanvas() {
+      const page = activePage();
+      $("pageBadge").textContent = page.title || page.id;
+      $("pageMeta").innerHTML = `<strong>${escapeHtml(page.form || "")}</strong><br>${escapeHtml(page.aspect || "")}<br>${escapeHtml(state.project.styleBible || "")}`;
+      const canvas = $("objectCanvas");
+      canvas.innerHTML = "";
+      if (!page.objects.length) {
+        canvas.innerHTML = `
+          <div class="empty">
+            <div>
+              <strong>空白画布</strong><br>
+              先在右上角点“新增对象”，或添加素材后让 Codex 帮你生成对象清单。<br>
+              这应该是新项目的默认状态。
+            </div>
+          </div>`;
+        return;
+      }
+      const grid = document.createElement("div");
+      grid.className = "object-grid";
+      page.objects.forEach(obj => {
+        const material = findMaterialForObject(obj);
+        const card = document.createElement("div");
+        card.className = "scrap-object" + (obj.id === state.selectedObjectId ? " selected" : "");
+        card.onclick = () => { state.selectedObjectId = obj.id; render(); };
+        card.innerHTML = `
+          <div class="row"><span class="tag ${escapeHtml(obj.type)}">${escapeHtml(obj.type)}</span><strong>${escapeHtml(obj.id)}</strong></div>
+          ${material?.dataUrl ? `<img class="preview" src="${material.dataUrl}" alt="">` : ""}
+          <div>${escapeHtml(obj.content || "")}</div>
+          <div class="muted">${escapeHtml(obj.area || "")}</div>
+        `;
+        grid.appendChild(card);
+      });
+      canvas.appendChild(grid);
+    }
+
+    function renderObjects() {
+      const page = activePage();
+      const list = $("objectsList");
+      list.innerHTML = "";
+      if (!page.objects.length) {
+        list.innerHTML = `<div class="muted">当前页还没有对象。对象就是可控的照片、文字、角色、贴纸、分镜或背景。</div>`;
+        return;
+      }
+      page.objects.forEach(obj => {
+        const row = document.createElement("div");
+        row.className = "card clickable" + (obj.id === state.selectedObjectId ? " selected" : "");
+        row.onclick = () => { state.selectedObjectId = obj.id; render(); };
+        row.innerHTML = `<div class="row"><span class="tag ${escapeHtml(obj.type)}">${escapeHtml(obj.type)}</span><strong>${escapeHtml(obj.id)}</strong></div><div class="muted">${escapeHtml(obj.content || "")}</div>`;
+        list.appendChild(row);
+      });
+    }
+
+    function renderInspector() {
+      const obj = selectedObject();
+      $("emptyInspector").hidden = !!obj;
+      $("inspector").hidden = !obj;
+      if (!obj) return;
+      $("objId").value = obj.id || "";
+      $("objType").value = obj.type || "IMG";
+      $("objArea").value = obj.area || "";
+      $("objContent").value = obj.content || "";
+      $("objSource").value = obj.source || "";
+      $("objRule").value = obj.editableRule || "";
+    }
+
+    function renderGeneratedImages() {
+      const target = $("generatedImages");
+      target.innerHTML = "";
+      const images = state.project.generatedImages || [];
+      if (!images.length) {
+        target.innerHTML = `<div class="muted">生成结果会出现在这里。</div>`;
+        return;
+      }
+      images.forEach(item => {
+        const wrap = document.createElement("a");
+        wrap.href = item.imageUrl || item.imagePath;
+        wrap.target = "_blank";
+        wrap.innerHTML = `<img src="${item.imageUrl}" alt="${escapeHtml(item.prompt || "generated image")}">`;
+        target.appendChild(wrap);
+      });
+    }
+
+    function findMaterialForObject(obj) {
+      const text = `${obj.id} ${obj.content || ""}`.toLowerCase();
+      return state.project.materials.find(mat => {
+        const m = `${mat.label || ""} ${mat.note || ""}`.toLowerCase();
+        return m.includes(obj.id.toLowerCase()) || (mat.label && text.includes(mat.label.toLowerCase()));
+      });
+    }
+
+    function addMaterial() {
+      const file = $("materialFile").files[0];
+      const finish = (dataUrl = "") => {
+        state.project.materials.push({
+          id: `MAT${state.project.materials.length + 1}`,
+          type: $("materialType").value,
+          label: $("materialLabel").value.trim() || `素材 ${state.project.materials.length + 1}`,
+          note: $("materialNote").value.trim(),
+          dataUrl
+        });
+        $("materialLabel").value = "";
+        $("materialNote").value = "";
+        $("materialFile").value = "";
+        render();
+      };
+      if (!file) return finish("");
+      const reader = new FileReader();
+      reader.onload = () => finish(reader.result);
+      reader.readAsDataURL(file);
+    }
+
+    function addPage() {
+      const n = state.project.pages.length + 1;
+      const page = { id: `P${n}`, title: `DAY ${n}`, form: "daily scrapbook page", aspect: $("imageSize").value, objects: [] };
+      state.project.pages.push(page);
+      state.activePageId = page.id;
+      state.selectedObjectId = null;
+      render();
+    }
+
+    function addObject() {
+      const page = activePage();
+      const type = "IMG";
+      const n = page.objects.filter(o => o.type === type).length + 1;
+      const obj = {
+        id: `${page.id}-${type}${n}`,
+        type,
+        area: "anchor scene",
+        content: "main travel memory photo or generated illustration",
+        source: "needs user material",
+        editableRule: "Preserve this slot role, sticker border, approximate size, and label position."
+      };
+      page.objects.push(obj);
+      state.selectedObjectId = obj.id;
+      render();
+    }
+
+    function applyObject() {
+      const obj = selectedObject();
+      if (!obj) return;
+      obj.id = $("objId").value.trim();
+      obj.type = $("objType").value;
+      obj.area = $("objArea").value.trim();
+      obj.content = $("objContent").value.trim();
+      obj.source = $("objSource").value.trim();
+      obj.editableRule = $("objRule").value.trim();
+      state.selectedObjectId = obj.id;
+      render();
+    }
+
+    function duplicateObject() {
+      const page = activePage();
+      const obj = selectedObject();
+      if (!obj) return;
+      const n = page.objects.filter(o => o.type === obj.type).length + 1;
+      const copy = { ...obj, id: `${page.id}-${obj.type}${n}`, content: `${obj.content} copy` };
+      page.objects.push(copy);
+      state.selectedObjectId = copy.id;
+      render();
+    }
+
+    function deleteObject() {
+      const page = activePage();
+      page.objects = page.objects.filter(o => o.id !== state.selectedObjectId);
+      state.selectedObjectId = page.objects[0]?.id || null;
+      render();
+    }
+
+    function buildPrompt() {
+      state.project.description = $("projectBrief").value.trim();
+      state.project.styleBible = $("styleBible").value.trim();
+      const page = activePage();
+      const objects = page.objects.map(o => `${o.id} [${o.type}] ${o.area}: ${o.content}`).join("; ");
+      const materials = state.project.materials.map(m => `${m.id} ${m.type}: ${m.label} ${m.note || ""}`).join("; ");
+      const prompt = [
+        `Create a ${$("imageSize").value} East Asian sticker-style travel scrapbook / mini-comic page in Chinese.`,
+        `Project: ${state.project.title}.`,
+        `Travel brief: ${state.project.description || "user will provide travel memories and materials"}.`,
+        `Page: ${page.title}; form: ${page.form}; aspect/size: ${page.aspect || $("imageSize").value}.`,
+        `Style bible: ${state.project.styleBible}.`,
+        `Materials to incorporate: ${materials || "none yet; use clearly separated placeholder sticker slots"}.`,
+        `Editable object slots: ${objects || "create clear replaceable IMG/TXT/CHR/STK/PNL/BG slots for the page"}.`,
+        "Visual language: handmade East Asian 手帐 collage, cute sticker scrapbook, white-border photo stickers, washi tape, torn paper, grid/notebook paper, ticket stubs, stamp marks, short handwritten Chinese labels, speech bubbles, small manga diary details, warm varied colors.",
+        "Text handling: use large readable Chinese labels only; keep exact text short; avoid tiny paragraphs.",
+        "Negative constraints: do not make a clean travel itinerary board, do not invent personal events, do not use proprietary character likenesses unless supplied, do not flatten slots into an uneditable poster."
+      ].join("\n\n");
+      $("generationPrompt").value = prompt;
+      setStatus("已生成当前页 prompt。");
+      return prompt;
+    }
+
+    async function generateImage() {
+      const prompt = $("generationPrompt").value.trim() || buildPrompt();
+      await saveProject();
+      setStatus("正在通过后端调用图像 API...");
+      try {
+        const res = await fetch("/api/generate-image", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            prompt,
+            model: $("imageModel").value,
+            size: $("imageSize").value,
+            quality: $("imageQuality").value,
+            output_format: "png"
+          })
+        });
+        const data = await res.json();
+        if (!data.ok) {
+          setStatus(data.needsApiKey
+            ? "未配置 OPENAI_API_KEY。\n在启动服务器前设置环境变量后再点生图。"
+            : `生图失败：${data.error || "unknown error"}`);
+          return;
+        }
+        state.project.generatedImages ||= [];
+        state.project.generatedImages.unshift({ ...data, prompt, pageId: activePage().id, createdAt: new Date().toISOString() });
+        await saveProject();
+        renderGeneratedImages();
+        setStatus(`生图完成：${data.imagePath}`);
+      } catch (err) {
+        setStatus(`生图请求失败：${err.message}`);
+      }
+    }
+
+    async function loadDemo() {
+      const res = await fetch("/demo-project.json");
+      state.project = await res.json();
+      ensureProjectShape();
+      state.activePageId = state.project.pages[0]?.id || null;
+      state.selectedObjectId = state.project.pages[0]?.objects?.[0]?.id || null;
+      render();
+      setStatus("已载入上海示例。保存后会覆盖当前项目 JSON。");
+    }
+
+    function newBlank() {
+      state.project = blankProject();
+      state.activePageId = "P1";
+      state.selectedObjectId = null;
+      $("generationPrompt").value = "";
+      render();
+      setStatus("已新建空白项目。");
+    }
+
+    function exportJson() {
+      syncTopFields();
+      download(`${safeFileName(state.project.title)}.json`, JSON.stringify(state.project, null, 2), "application/json");
+    }
+
+    function exportPrompt() {
+      const prompt = $("generationPrompt").value.trim() || buildPrompt();
+      download(`${safeFileName(state.project.title)}-${activePage().id}-prompt.txt`, prompt, "text/plain");
+    }
+
+    function importJsonFile(file) {
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = () => {
+        try {
+          state.project = JSON.parse(reader.result);
+          ensureProjectShape();
+          state.activePageId = state.project.pages[0]?.id || null;
+          state.selectedObjectId = state.project.pages[0]?.objects?.[0]?.id || null;
+          render();
+        } catch (err) {
+          alert(`JSON 解析失败: ${err.message}`);
+        }
+      };
+      reader.readAsText(file, "utf-8");
+    }
+
+    function syncTopFields() {
+      state.project.title = $("projectTitle").value.trim() || state.project.title;
+      state.project.description = $("projectBrief").value.trim();
+      state.project.styleBible = $("styleBible").value.trim();
+    }
+
+    function setStatus(text) {
+      $("generationStatus").textContent = text || "";
+    }
+
+    function download(filename, text, type) {
+      const blob = new Blob([text], { type });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    }
+
+    function safeFileName(name) {
+      return (name || "sticker-travel-scrapbook").replace(/[\\/:*?"<>|]+/g, "-");
+    }
+
+    function escapeHtml(value) {
+      return String(value ?? "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    $("newBtn").onclick = newBlank;
+    $("demoBtn").onclick = loadDemo;
+    $("saveBtn").onclick = saveProject;
+    $("importBtn").onclick = () => $("importFile").click();
+    $("importFile").onchange = e => importJsonFile(e.target.files[0]);
+    $("exportBtn").onclick = exportJson;
+    $("addMaterialBtn").onclick = addMaterial;
+    $("addPageBtn").onclick = addPage;
+    $("addObjectBtn").onclick = addObject;
+    $("applyObjectBtn").onclick = applyObject;
+    $("duplicateObjectBtn").onclick = duplicateObject;
+    $("deleteObjectBtn").onclick = deleteObject;
+    $("buildPromptBtn").onclick = buildPrompt;
+    $("generateImageBtn").onclick = generateImage;
+    $("exportPromptBtn").onclick = exportPrompt;
+
+    loadProject();
+  </script>
+</body>
+</html>

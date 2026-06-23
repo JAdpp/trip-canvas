@@ -1,0 +1,126 @@
+{
+  "schemaVersion": 1,
+  "title": "上海端午三日旅行手帐",
+  "description": "Demo project for East Asian sticker-style travel scrapbook authoring.",
+  "styleBible": "东亚粘贴式旅行手帐 + 小漫画日记；三日横向分栏；白边照片贴纸、手写中文、票根卡片、对话气泡、角色一致。",
+  "characters": [
+    {
+      "id": "ALL-CHR1",
+      "name": "boy traveler",
+      "identity": "round glasses, short black hair, cheerful travel outfit",
+      "role": "route/photo reaction partner"
+    },
+    {
+      "id": "ALL-CHR2",
+      "name": "girl traveler",
+      "identity": "round glasses, long black hair, light outfit",
+      "role": "memory narrator and mood note keeper"
+    }
+  ],
+  "materials": [
+    {
+      "id": "MAT1",
+      "type": "source image",
+      "label": "Generated Shanghai three-day scrapbook",
+      "note": "Use as baseline composition and style reference."
+    }
+  ],
+  "pages": [
+    {
+      "id": "P1",
+      "title": "DAY 1 城市乐园夜游",
+      "form": "multi-day spread column",
+      "aspect": "3:1 spread, left column",
+      "objects": [
+        {
+          "id": "P1-IMG1",
+          "type": "IMG",
+          "area": "upper right",
+          "content": "city park anniversary night lights and fireworks badge",
+          "source": "visible in uploaded image",
+          "editableRule": "Replace with real night-scene image; preserve blue-gold celebration role."
+        },
+        {
+          "id": "P1-PNL1",
+          "type": "PNL",
+          "area": "lower middle",
+          "content": "roller coaster reaction panel",
+          "source": "visible in uploaded image",
+          "editableRule": "Regenerate as a mini-comic panel without changing Day 1 title."
+        },
+        {
+          "id": "P1-TXT1",
+          "type": "TXT",
+          "area": "top",
+          "content": "DAY 1 6.19 端午节 城市乐园夜游 周年庆!",
+          "source": "visible in uploaded image",
+          "editableRule": "Use exact text overlay if generated text is distorted."
+        }
+      ]
+    },
+    {
+      "id": "P2",
+      "title": "DAY 2 十二海里编辑部",
+      "form": "cozy urban scrapbook column",
+      "aspect": "3:1 spread, center column",
+      "objects": [
+        {
+          "id": "P2-IMG1",
+          "type": "IMG",
+          "area": "top",
+          "content": "warm bar bottle-wall scene",
+          "source": "visible in uploaded image",
+          "editableRule": "Replace with actual bar photo; keep amber atmosphere."
+        },
+        {
+          "id": "P2-IMG2",
+          "type": "IMG",
+          "area": "middle",
+          "content": "movie card for 给阿姨的情书",
+          "source": "visible in uploaded image",
+          "editableRule": "Control poster and ticket text separately if text accuracy matters."
+        },
+        {
+          "id": "P2-TXT1",
+          "type": "TXT",
+          "area": "left note",
+          "content": "把想说的话，写进情书。",
+          "source": "visible in uploaded image",
+          "editableRule": "Treat as exact user writing unless asked to polish."
+        }
+      ]
+    },
+    {
+      "id": "P3",
+      "title": "DAY 3 上海博物馆东馆",
+      "form": "museum field-note scrapbook column",
+      "aspect": "3:1 spread, right column",
+      "objects": [
+        {
+          "id": "P3-IMG1",
+          "type": "IMG",
+          "area": "top",
+          "content": "Shanghai Museum East exterior",
+          "source": "visible in uploaded image",
+          "editableRule": "Replace with real exterior photo; keep architecture as anchor."
+        },
+        {
+          "id": "P3-IMG2",
+          "type": "IMG",
+          "area": "middle",
+          "content": "phone photo with 蟠桃瓶",
+          "source": "visible in uploaded image",
+          "editableRule": "Replace only phone-screen/artifact image if requested."
+        },
+        {
+          "id": "P3-PNL1",
+          "type": "PNL",
+          "area": "lower right",
+          "content": "travelers pointing at artifact cards",
+          "source": "visible in uploaded image",
+          "editableRule": "Preserve character pose relationship; revise expressions only."
+        }
+      ]
+    }
+  ]
+}

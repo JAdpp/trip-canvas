@@ -1,0 +1,26 @@
+# Copy to private/character-profile.local.yaml and edit locally.
+# Do not publish private character profiles or reference images.
+
+characters:
+  - id: traveler_a
+    display_name: "private name"
+    identity_prompt: "face, hair, glasses, outfit family, age impression, body proportion"
+    role: "main traveler / narrator / photographer / food lover"
+    must_keep:
+      - "stable hairstyle"
+      - "stable glasses/clothing family if applicable"
+    avoid:
+      - "changing age"
+      - "changing face shape"
+    assets:
+      - "assets/character-references/traveler-a-sheet.png"
+  - id: traveler_b
+    display_name: "private name"
+    identity_prompt: "face, hair, outfit family, body proportion"
+    role: "companion / reaction partner / mood note keeper"
+    must_keep:
+      - "stable hairstyle"
+    avoid:
+      - "different identity"
+    assets:
+      - "assets/character-references/traveler-b-sheet.png"

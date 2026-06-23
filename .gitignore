@@ -1,0 +1,10 @@
+private/*
+assets/character-references/*
+assets/source-materials/*
+assets/style-references/*
+!private/.gitkeep
+!assets/character-references/.gitkeep
+!assets/source-materials/.gitkeep
+!assets/style-references/.gitkeep
+__pycache__/
+*.pyc

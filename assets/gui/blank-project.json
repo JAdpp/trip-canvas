@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "title": "新的旅行手帐项目",
+  "description": "",
+  "styleBible": "东亚粘贴式旅行手帐 + 小漫画日记；白边照片贴纸、手写中文、票根卡片、对话气泡、角色一致。",
+  "characters": [],
+  "materials": [],
+  "generatedImages": [],
+  "pages": [
+    {
+      "id": "P1",
+      "title": "DAY 1",
+      "form": "daily scrapbook page",
+      "aspect": "1024x1536",
+      "objects": []
+    }
+  ]
+}
