@@ -8,6 +8,8 @@
 
 It is built for memory-first visual authoring: personal scenes, moods, companions, meals, objects, ticket-like scraps, photo slots, stickers, maps, polaroids, black-and-white doodles, and small comic moments. It is not a route-first itinerary board or a clean travel photo book.
 
+By default, it is an agent-led workflow rather than only a prompt generator. A user can send a completed trip plan, photos, notes, and rough preferences; Codex should parse the materials, ask only the key missing questions, draft the page/components/object manifest, and then help generate the final scrapbook image, export prompts, or open the GUI for manual control.
+
 ## Example Gallery
 
 These are public-safe generated examples. They do not use private travel photos, commercial characters, brand mascots, real tickets, or private people.
@@ -56,14 +58,17 @@ Visual route examples:
 
 ## What The Skill Does
 
+- Guides non-expert users from messy travel materials to a concrete scrapbook plan.
 - Structures travel materials into scrapbook-ready memory scenes.
+- Asks focused follow-up questions only when style, character, layout, text, or generation intent is unclear.
 - Plans East Asian sticker-style layouts and mini-comic pages.
 - Chooses among visual routes such as cute comic stickers, black-and-white cartoon doodle, map infographic, and polaroid photo collage.
 - Creates editable object manifests with stable IDs such as `P1-IMG1`, `P1-TXT1`, `P1-CHR1`, `P1-STK1`, and `P1-PNL1`.
+- Drafts components such as character stickers, photo slots, scene panels, text cards, map/ticket scraps, and decorative stickers before final page generation when the user wants staged control.
 - Maintains character and style consistency across pages.
-- Generates copyable image prompts for new pages or targeted revisions.
+- Generates copyable image prompts, component prompts, or final images when an image-generation tool/API is available and requested.
 - Supports localized revision prompts, such as replacing one image slot without redesigning the full page.
-- Includes a local web GUI for project editing, prompt building, JSON import/export, and optional API-backed image generation.
+- Includes a local web GUI as a manual-control mode for project editing, prompt building, JSON import/export, and optional API-backed image generation.
 
 ## Repository Layout
 
@@ -121,23 +126,26 @@ If Codex does not detect the Skill immediately, restart Codex or start a new thr
 
 ## Basic Usage In Codex
 
-Explicitly invoke the Skill:
+Explicitly invoke the Skill. For a beginner-friendly flow, you can simply give the trip materials and let Codex guide the missing decisions:
 
 ```text
 Use $sticker-travel-scrapbook.
-I want to create an East Asian sticker-style travel scrapbook / mini-comic page.
+I want to create an East Asian sticker-style travel scrapbook / mini-comic page, but I am not sure about the exact style and layout yet.
 
 Trip content:
 June 19, city park night visit, summer festival. Key memories include night lights, a small parade, a roller coaster, snacks, fireworks, and walking back through a lively crowd. The mood is excited, warm, and celebratory.
 
 Please output:
 1. A structured travel-memory table
-2. Page format and layout suggestions
-3. An editable object manifest using IDs such as P1-IMG1 / P1-TXT1 / P1-CHR1 / P1-PNL1
-4. A selected visual route, style settings, and character settings
-5. A copyable image-generation prompt
-6. A localized revision instruction for replacing only the fireworks area later
+2. Any key missing questions or default assumptions
+3. Page format and layout suggestions
+4. An editable object manifest and component draft using IDs such as P1-IMG1 / P1-TXT1 / P1-CHR1 / P1-PNL1
+5. Visual route, character/persona settings, and exact text list
+6. Component prompts or a final image-generation prompt
+7. Ask me whether to generate the final scrapbook image, generate components first, export the prompt pack, or open the GUI
 ```
+
+If the style, layout, text, characters, and generation target are already clear, Codex should proceed directly instead of adding unnecessary questions.
 
 Revision example:
 
@@ -150,7 +158,7 @@ Give me only a localized revision prompt.
 
 ## Local GUI
 
-The Skill includes a lightweight local GUI. It starts from a blank project by default.
+The Skill includes a lightweight local GUI for full manual control. It starts from a blank project by default.
 
 Launch it with:
 
@@ -164,7 +172,7 @@ Then open the printed local URL, usually:
 http://127.0.0.1:8765/
 ```
 
-The GUI supports travel-brief editing, style-bible editing, material notes, page and object creation, editable object IDs, current-page image prompt generation, project JSON import/export, and a generated-image gallery when API generation is enabled.
+The GUI supports travel-brief editing, style-bible editing, material notes, page and object creation, editable object IDs, current-page image prompt generation, project JSON import/export, and a generated-image gallery when API generation is enabled. Use it when you want direct control over the objects and generation settings instead of an agent-led dialogue.
 
 ## Optional GUI Image Generation
 
@@ -192,5 +200,5 @@ Skill is valid!
 
 ## Current Boundary
 
-This is a Skill plus local GUI prototype. The GUI can either build/export prompts for Codex or another image tool, or call the OpenAI Images API directly when `OPENAI_API_KEY` is configured.
+This is a Skill plus local GUI prototype. The default Skill behavior is an agent-led scrapbook authoring workflow; prompt packs and the GUI are two control surfaces inside that workflow. Direct image generation depends on the image tools or API keys available in the user's Codex/runtime environment.
 

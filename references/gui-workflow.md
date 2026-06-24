@@ -1,6 +1,15 @@
 # GUI Workflow
 
-Use this when the user asks for an interface, GUI, canvas, local app, object editor, or interactive project review.
+Use this when the user asks for an interface, GUI, canvas, local app, object editor, manual control, or interactive project review.
+
+## Relationship To Agent-Led Workflow
+
+The GUI is the manual-control surface for the same authoring contract that Codex can drive conversationally.
+
+- Agent-led mode is best for non-expert users who send an itinerary, photos, and rough wishes, then want Codex to ask useful questions and advance the project.
+- GUI mode is best when the user wants full control over pages, objects, text cards, materials, prompts, and image-generation settings.
+- Codex may create a project plan first, then let the user inspect and edit it in the GUI.
+- The GUI should start blank by default; demo projects are only loaded when explicitly requested.
 
 ## What The GUI Does
 
@@ -16,7 +25,7 @@ The bundled GUI is a local web workbench for the Skill's authoring contract:
 - import/export project JSON.
 - export a prompt pack markdown file.
 
-It is not a full Photoshop/Figma replacement. Treat it as a generation workbench: structure materials, create editable object slots, generate prompts, call an image API when configured, and keep generated results linked to the project.
+It is not a full Photoshop/Figma replacement and it is not the whole Skill by itself. Treat it as a generation workbench: structure materials, create editable object slots, generate prompts, call an image API when configured, and keep generated results linked to the project.
 
 ## Launch Command
 

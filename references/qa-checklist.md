@@ -31,6 +31,9 @@ Use this before finalizing page plans, prompts, generated-image critiques, or re
 ## Output QA
 
 - New-creation output uses the required section order from `SKILL.md`.
+- If the user is non-expert, the workflow asks only high-impact missing questions and otherwise proceeds with labeled defaults.
+- Component drafts are separated before final page generation when the user wants staged control.
+- If direct image generation is requested and available, the output does not stop at prompt export.
 - Revision-only output avoids unnecessary full regeneration.
 - The user can copy prompts directly.
 - The user can point to object IDs for the next edit.

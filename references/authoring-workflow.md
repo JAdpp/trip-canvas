@@ -1,10 +1,21 @@
 # Authoring Workflow
 
-Use this for full creation requests. The goal is a controllable authoring process, not a one-shot image prompt.
+Use this for full creation requests. The goal is a controllable agent-led authoring process, not a one-shot image prompt.
 
 ## Flow
 
-`materials -> memory extraction -> page form -> editable object manifest -> visual route -> style/character bible -> prompt pack -> QA -> revision contract`
+`materials -> sufficiency check -> focused questions or labeled defaults -> memory extraction -> page form -> editable object manifest -> visual route -> style/character bible -> component draft -> confirmation -> prompt pack, direct generation, or GUI project -> QA -> revision contract`
+
+## Step 0: Decide How Much To Ask
+
+Do not require the user to already know the final scrapbook design. Many users will only provide an itinerary and photos.
+
+- If the brief is clear enough, proceed with labeled default assumptions.
+- If important choices are missing, ask up to three focused questions at a time.
+- If the user explicitly asks for immediate generation and the materials are sufficient, do not force a confirmation round.
+- If the user asks for full manual control, move to the GUI workflow.
+
+High-value questions usually concern visual route, character/persona treatment, page count/aspect ratio, must-keep captions, and whether to generate components first or the final page directly.
 
 ## Step 1: Inventory Materials
 
@@ -56,11 +67,28 @@ For each page, specify:
 - decorative sticker/tape/stamp zone.
 - fact anchor zone for times, tickets, place names, or route fragments.
 
-## Step 5: Produce The Contract
+## Step 5: Produce The Contract And Component Draft
 
 Always produce an editable object manifest before final prompts. Each prompt should be traceable back to object IDs.
 
-## Step 6: Prepare Iteration
+Also draft the visible components before final image generation:
+
+- source photo or photo-slot objects.
+- generated scene panels or mini-comic panels.
+- character stickers or avatar appearances.
+- text cards, title/date badges, speech bubbles, and exact text list.
+- decorative stickers, stamps, tape, maps, tickets, and background paper.
+
+When the user wants staged control, present these components for confirmation or revision before generating the final scrapbook page.
+
+## Step 6: Generate, Export, Or Prepare Iteration
+
+After the component draft is clear, choose the next step:
+
+- generate the final scrapbook page when the user requests direct generation and an image tool/API is available.
+- generate component drafts first when the user wants to inspect stickers, characters, or photo slots.
+- export a prompt pack when direct generation is unavailable or the user wants to use another tool.
+- export or launch a GUI project when the user wants full manual control.
 
 End each prompt pack with revision instructions:
 

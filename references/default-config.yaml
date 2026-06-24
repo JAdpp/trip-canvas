@@ -2,7 +2,7 @@ version: 1
 
 defaults:
   language: "zh-CN"
-  output_mode: "prompt_pack"
+  output_mode: "agent_led_workflow"
   new_page_default_forms:
     - "daily scrapbook page"
     - "hybrid scrapbook-comic page"
@@ -31,6 +31,10 @@ features:
   support_prompt_only_mode: true
   support_image_generation_when_available: true
   support_local_web_gui: true
+  support_guided_questioning: true
+  support_component_review: true
+  support_confirmation_before_final_generation: true
+  support_gui_control_mode: true
   support_gui_template_future: true
 
 gui:
@@ -49,6 +53,7 @@ gui:
     - "page preview"
     - "editable object manifest editor"
     - "page-level image prompt builder"
+    - "component prompt and object review workflow"
     - "direct image generation when API key is configured"
     - "generated image gallery"
     - "project JSON import/export"

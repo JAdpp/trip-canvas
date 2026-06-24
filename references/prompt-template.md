@@ -1,6 +1,6 @@
 # Prompt Template
 
-Use this for final image prompts. Fill every bracket with page-specific content. Do not write "same as above".
+Use this for final page prompts or component-level prompts after the memory structure, object manifest, visual route, and component draft are clear. Fill every bracket with page-specific content. Do not write "same as above".
 
 ```text
 Create a [aspect ratio] East Asian sticker-style travel scrapbook page in Chinese using the selected visual route: [cute sticker comic / black-and-white cartoon doodle / map infographic scrapbook / polaroid photo collage / hybrid]. The page should feel handmade, layered, object-rich, and memory-first, not like a clean travel itinerary board or generic photo book.
@@ -37,6 +37,7 @@ Do not make a route-first travel guide page unless explicitly requested. Do not 
 
 - Put exact text in a separate list before or after the prompt when text correctness matters.
 - Use object IDs in the page plan and in the prompt so later revisions can target them.
+- If the user wants staged control, write separate prompts for character stickers, scene panels, photo-slot backgrounds, text-card layouts, or decorative sticker sheets before the final page prompt.
 - For generated model prompts, describe visual text as large labels and keep the precise text list outside the image when possible.
 - For multi-day spreads, keep each day visually separated while sharing one style bible.
 - For mini-comics, include panel count and panel purpose.

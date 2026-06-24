@@ -1,17 +1,18 @@
 ---
 name: sticker-travel-scrapbook
-description: "Use when the user wants to create, plan, revise, evaluate, or interactively edit East Asian sticker-style travel scrapbook pages, visual travel diaries, dense collage journals, cute itinerary-memory pages, mini-comic travel handbooks, black-and-white cartoon doodle journals, map-infographic scrapbook pages, or polaroid photo collage travel journals from photos, itinerary text, tickets, notes, screenshots, character references, or an existing generated scrapbook image. Also use when the user asks for a GUI, canvas, local app, object editor, project JSON, prompt-pack exporter, or local web workbench for travel scrapbook authoring. Specializes in memory-first multimodal authoring: structuring travel memories, preserving user facts, building editable object manifests, choosing visual routes, maintaining character/style consistency, writing image prompts, launching a local GUI, and supporting localized revisions such as replacing one sticker/photo/text card/panel without redesigning the whole page."
+description: "Use when the user wants to create, plan, revise, evaluate, or interactively edit East Asian sticker-style travel scrapbook pages, visual travel diaries, dense collage journals, cute itinerary-memory pages, mini-comic travel handbooks, black-and-white cartoon doodle journals, map-infographic scrapbook pages, or polaroid photo collage travel journals from photos, itinerary text, tickets, notes, screenshots, character references, or an existing generated scrapbook image. Also use when the user asks for a GUI, canvas, local app, object editor, project JSON, prompt-pack exporter, or local web workbench for travel scrapbook authoring. Specializes in memory-first multimodal authoring: guiding non-expert users from messy materials through focused questions, visual-route choices, component/object drafts, confirmation, image prompts or direct image generation when available, local GUI control, and localized revisions such as replacing one sticker/photo/text card/panel without redesigning the whole page."
 ---
 
 # Sticker Travel Scrapbook
 
 ## Mission
 
-Turn travel materials into editable East Asian sticker-style scrapbook page plans, prompt packs, and revision instructions. Prioritize personal memory-making, visual play, sticker collage, character continuity, visual-route choice, and local editability over route-first travel-guide readability.
+Turn travel materials into an agent-led, editable East Asian sticker-style scrapbook authoring workflow. Do not stop at being a prompt generator: guide users from itinerary/photos/notes to memory structure, style and character decisions, component/object drafts, prompts, optional image generation, and later revisions. Prioritize personal memory-making, visual play, sticker collage, character continuity, visual-route choice, and local editability over route-first travel-guide readability.
 
 Use this Skill for:
 
-- Creating scrapbook prompt packs from travel photos, itineraries, notes, tickets, routes, chat fragments, or rough memory descriptions.
+- Guiding non-expert users from travel photos, itineraries, notes, tickets, routes, chat fragments, or rough memory descriptions into a finished scrapbook image workflow.
+- Creating scrapbook prompt packs when the user wants exportable prompts instead of direct generation.
 - Converting an existing generated scrapbook image into an editable plan and object manifest.
 - Revising one region of a generated page while preserving the rest of the layout, characters, text, and style.
 - Choosing among visual routes such as cute sticker comic, black-and-white cartoon doodle, map-infographic scrapbook, polaroid photo collage, and hybrid variants.
@@ -21,13 +22,13 @@ Use this Skill for:
 
 Do not treat the output as a normal travel diary, photo book, itinerary board, or generic collage poster. Treat it as a handmade-feeling visual memory artifact:
 
-`real trip materials -> memory scenes -> page/story structure -> editable object manifest -> visual route + style/character bible -> image prompts or local revision instructions`
+`real trip materials -> sufficiency check -> memory scenes -> page/story structure -> editable object manifest -> visual route + style/character bible -> component draft -> user confirmation -> image prompts, direct generation, GUI project, or local revision instructions`
 
 The page may include route facts, weather, tickets, hotel, or maps, but these are supporting anchors. The main subject is the user's remembered experience, scenes, moods, companions, food, objects, jokes, and small visual episodes.
 
 ## Load References
 
-- Load `references/authoring-workflow.md` for full creation, from materials to prompts.
+- Load `references/authoring-workflow.md` for full agent-led creation, from materials to questions, components, prompts, generation, and revision.
 - Load `references/memory-structure.md` when parsing travel photos, itinerary text, notes, tickets, screenshots, or rough memories.
 - Load `references/east-asian-visual-language.md` before page planning or prompt writing.
 - Load `references/comic-panel-patterns.md` when the user asks for mini-comic, manga-style moments, character scenes, or multi-panel storytelling.
@@ -41,6 +42,16 @@ The page may include route facts, weather, tickets, hotel, or maps, but these ar
 - Load `references/default-config.yaml` when the user asks about defaults, modes, aspect ratios, GUI behavior, or project JSON.
 
 ## Workflow
+
+### 0. Choose Interaction Mode
+
+Default to `agent-led guided workflow` when the user provides travel materials but does not know exactly how the page should look. In this mode, read the materials, infer a reasonable first draft, and ask only the smallest useful set of follow-up questions.
+
+Use `direct execution` when the user already gives clear style, character, layout, text, and generation instructions. Do not slow them down with unnecessary questions.
+
+Use `GUI control mode` when the user asks for GUI, canvas, local app, object editor, manual control, or project JSON. The GUI gives the user direct control over materials, pages, objects, prompts, and optional API-backed image generation.
+
+If key decisions are missing, ask up to three focused questions at a time, such as visual route, character/persona treatment, page count/aspect ratio, must-keep text, or whether to generate the final image now. If the missing choice is low-risk, make a labeled default assumption and continue.
 
 ### 1. Normalize Inputs
 
@@ -99,16 +110,21 @@ If user-provided character/style references exist, use them as the top priority.
 
 Do not use copyrighted/proprietary character names, likenesses, or distinctive traits unless the user supplied them and explicitly wants that reference used.
 
-### 6. Write Prompts Or Revision Instructions
+### 6. Prepare Components, Prompts, Or Generation
 
-For new pages, output:
+For new pages, produce a staged authoring result rather than only a prompt:
 
 1. `【1. 旅行记忆结构化】`
-2. `【2. 页面形式与分镜/版式建议】`
-3. `【3. 可编辑对象清单】`
-4. `【4. 风格与角色设定】`
-5. `【5. 每页生图提示词】`
-6. `【6. 修改与批量生成说明】`
+2. `【2. 缺失信息与默认假设】`
+3. `【3. 页面形式与版式建议】`
+4. `【4. 可编辑对象清单与组件草案】`
+5. `【5. 风格、人物形象与文字清单】`
+6. `【6. 生图 prompt / 组件 prompt】`
+7. `【7. 下一步确认】`
+
+In the component draft, separate the final page into replaceable units: photo slots, generated scene panels, character stickers, decorative stickers, map/ticket scraps, text cards, speech bubbles, and background paper. If the user wants staged control, ask them to confirm or revise these components before final page generation.
+
+When an image-generation tool or API is available and the user asks for direct generation, use it after the component plan is clear. If the user has not explicitly asked to generate immediately, ask whether to generate component drafts, generate the final scrapbook page, export a prompt pack, or open the GUI project.
 
 For revision-only requests, do not redesign the whole page. Identify the target object ID or ask for the smallest missing identifier. Keep successful regions stable and produce a localized replacement instruction.
 
@@ -122,13 +138,14 @@ Default launch command, blank project:
 python "C:\Users\74783\.codex\skills\sticker-travel-scrapbook\scripts\server.py" --project ".\sticker-travel-scrapbook-project.json"
 ```
 
-The GUI is a local web workbench for materials, pages, editable object IDs, object inspection, JSON import/export, prompt-pack export, and localized revision prompt generation. It is not a full image editor; use it to structure and control the authoring process.
+The GUI is a local web workbench and manual control mode for materials, pages, editable object IDs, object inspection, JSON import/export, prompt-pack export, localized revision prompt generation, and optional API-backed image generation. It complements the agent-led workflow: Codex can create or revise a project plan conversationally, while the GUI lets the user inspect and directly edit the same structure.
 
 If `OPENAI_API_KEY` is set before launching the server, the GUI can call the OpenAI Images API through `/api/generate-image` and save generated images beside the project JSON. Without the key, the GUI still builds/export prompts and shows a clear "API key not configured" status.
 
 ## Hard Rules
 
 - Optimize for personal memory, sticker collage, and visual authorship before travel-guide utility.
+- Do not reduce full creation requests to one prompt. Use guided questions, object/component planning, confirmation, and generation/export steps.
 - Preserve user facts and user-written captions unless explicitly asked to revise them.
 - Keep every page locally editable through stable object IDs.
 - Keep characters consistent, but do not let character art erase memory materials.
