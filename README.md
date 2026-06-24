@@ -4,9 +4,9 @@
 
 [English](README.md) | [简体中文](README.zh-CN.md) | [日本語](README.ja.md)
 
-`sticker-travel-scrapbook` is a Codex Skill for creating, planning, revising, and interactively editing East Asian sticker-style travel scrapbook pages and mini-comic travel diaries.
+`sticker-travel-scrapbook` is a Codex Skill for creating, planning, revising, and interactively editing multi-style travel scrapbook pages, visual travel journals, and mini-comic travel diaries.
 
-It is built for memory-first visual authoring: personal scenes, moods, companions, meals, objects, ticket-like scraps, photo slots, stickers, maps, polaroids, black-and-white doodles, and small comic moments. It is not a route-first itinerary board or a clean travel photo book.
+It is built for memory-first visual authoring: personal scenes, moods, companions, meals, objects, ticket-like scraps, photo slots, stickers, maps, polaroids, watercolor pages, vintage ephemera, urban sketches, black-and-white doodles, and small comic moments. It is not a route-first itinerary board or a clean travel photo book.
 
 By default, it is an agent-led workflow rather than only a prompt generator. A user can send a completed trip plan, photos, notes, and rough preferences; Codex should parse the materials, ask only the key missing questions, draft the page/components/object manifest, and then help generate the final scrapbook image, export prompts, or open the GUI for manual control.
 
@@ -14,7 +14,7 @@ By default, it is an agent-led workflow rather than only a prompt generator. A u
 
 These are public-safe generated examples. They do not use private travel photos, commercial characters, brand mascots, real tickets, or private people.
 
-Format and size range, all using the cute comic sticker route:
+Format and size range, using one cute sticker comic route:
 
 <table>
   <tr>
@@ -61,8 +61,8 @@ Visual route examples:
 - Guides non-expert users from messy travel materials to a concrete scrapbook plan.
 - Structures travel materials into scrapbook-ready memory scenes.
 - Asks focused follow-up questions only when style, character, layout, text, or generation intent is unclear.
-- Plans East Asian sticker-style layouts and mini-comic pages.
-- Chooses among visual routes such as cute comic stickers, black-and-white cartoon doodle, map infographic, and polaroid photo collage.
+- Plans multi-style scrapbook, visual journal, and mini-comic pages.
+- Chooses among visual routes such as East Asian sticker comic, kawaii sticker journal, black-and-white cartoon doodle, map infographic, polaroid photo collage, watercolor travel journal, vintage ephemera scrapbook, urban sketch journal, minimalist line journal, comic book travel page, and mixed-media collage.
 - Creates editable object manifests with stable IDs such as `P1-IMG1`, `P1-TXT1`, `P1-CHR1`, `P1-STK1`, and `P1-PNL1`.
 - Drafts components such as character stickers, photo slots, scene panels, text cards, map/ticket scraps, and decorative stickers before final page generation when the user wants staged control.
 - Maintains character and style consistency across pages.
@@ -99,7 +99,7 @@ Sticker-Travel-Scrapbook/
   references/
     authoring-workflow.md
     memory-structure.md
-    east-asian-visual-language.md
+    scrapbook-visual-routes.md
     comic-panel-patterns.md
     character-consistency.md
     editable-object-manifest.md
@@ -130,7 +130,7 @@ Explicitly invoke the Skill. For a beginner-friendly flow, you can simply give t
 
 ```text
 Use $sticker-travel-scrapbook.
-I want to create an East Asian sticker-style travel scrapbook / mini-comic page, but I am not sure about the exact style and layout yet.
+I want to create a travel scrapbook / visual journal / mini-comic page, but I am not sure about the exact style and layout yet.
 
 Trip content:
 June 19, city park night visit, summer festival. Key memories include night lights, a small parade, a roller coaster, snacks, fireworks, and walking back through a lively crowd. The mood is excited, warm, and celebratory.

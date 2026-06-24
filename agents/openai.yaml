@@ -1,7 +1,7 @@
 interface:
-  display_name: "粘贴式旅行手帐"
-  short_description: "引导生成多风格东亚旅行手帐、组件草案和本地工作台"
-  default_prompt: "Use $sticker-travel-scrapbook to guide me from my travel photos, itinerary, notes, tickets, and memories into an editable East Asian travel scrapbook. Ask only the key missing questions, propose visual routes and component/object drafts, then help me generate the final page, export prompts, or launch the local GUI workbench."
+  display_name: "旅行手帐生成台"
+  short_description: "引导生成多风格旅行手帐、组件草案和本地工作台"
+  default_prompt: "Use $sticker-travel-scrapbook to guide me from my travel photos, itinerary, notes, tickets, and memories into an editable multi-style travel scrapbook or visual journal. Ask only the key missing questions, propose visual routes and component/object drafts, then help me generate the final page, export prompts, or launch the local GUI workbench."
 
 policy:
   allow_implicit_invocation: true

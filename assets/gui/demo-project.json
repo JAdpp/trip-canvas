@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "title": "上海端午三日旅行手帐",
-  "description": "Demo project for East Asian sticker-style travel scrapbook authoring.",
-  "styleBible": "视觉路线：Q版贴纸漫画；东亚粘贴式旅行手帐；三日横向分栏；白边照片贴纸、手写中文、票根卡片、对话气泡、角色一致。",
+  "description": "Demo project showing one East Asian sticker-comic route inside the multi-style travel scrapbook workflow.",
+  "styleBible": "视觉路线：东亚贴纸漫画；三日横向分栏；白边照片贴纸、手写中文、票根卡片、对话气泡、角色一致。",
   "characters": [
     {
       "id": "ALL-CHR1",

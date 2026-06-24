@@ -379,6 +379,11 @@
           <label for="styleBible">风格设定</label>
           <textarea id="styleBible"></textarea>
         </div>
+        <div class="field">
+          <label for="styleRoutePreset">视觉路线预设</label>
+          <select id="styleRoutePreset"></select>
+          <button id="applyStyleRouteBtn" class="btn" type="button">应用路线到风格设定</button>
+        </div>
 
         <div class="divider"></div>
         <h2>添加素材</h2>
@@ -399,7 +404,7 @@
         </div>
         <div class="field">
           <label for="materialNote">备注</label>
-          <textarea id="materialNote" placeholder="希望这张素材放在哪里？要替换哪个槽位？"></textarea>
+          <textarea id="materialNote" placeholder="这张照片发生了什么？当时心情？是否必须保留？适合做主图、贴纸、分镜、背景还是文字卡？"></textarea>
         </div>
         <div class="field">
           <label for="materialFile">图片</label>
@@ -512,6 +517,58 @@
   </div>
 
   <script>
+    const STYLE_ROUTE_PRESETS = [
+      {
+        id: "east-asian-sticker-comic",
+        label: "东亚贴纸漫画",
+        value: "视觉路线：东亚贴纸漫画；高密度手帐拼贴、白边照片贴纸、胶带、方格/笔记本纸、手写短中文、食物和纪念品贴纸、轻漫画人物互动；适合可爱、热闹、角色感强的旅行记忆。"
+      },
+      {
+        id: "kawaii-sticker-journal",
+        label: "kawaii 贴纸日记",
+        value: "视觉路线：kawaii 贴纸日记；柔软圆润的小图标、明亮可爱的贴纸、轻松快乐的配色、简短手写标签；适合轻松、治愈、年轻化的旅行记录。"
+      },
+      {
+        id: "black-white-doodle",
+        label: "黑白卡通简笔画",
+        value: "视觉路线：黑白卡通简笔画；纯黑马克笔线条、圆润简单人物、图标和空白文字卡、留白充分；不要灰度漫画、不要写实排线、不要把彩色图简单转黑白。"
+      },
+      {
+        id: "map-infographic",
+        label: "地图信息图手帐",
+        value: "视觉路线：地图信息图手帐；路线地图作为主视觉、编号地点、交通图标、照片槽、票据和简洁标签；适合路线、地理关系或多地点对比重要的旅行。"
+      },
+      {
+        id: "polaroid-collage",
+        label: "拍立得照片拼贴",
+        value: "视觉路线：拍立得照片拼贴；真实照片主导、即时相片框、胶带固定、胶片颗粒、压花、地图碎片和手写标题；人物/漫画元素要克制。"
+      },
+      {
+        id: "watercolor-journal",
+        label: "水彩旅行日记",
+        value: "视觉路线：水彩旅行日记；透明水彩色块、细墨线、柔软纸张纹理、留白和轻柔标题；适合风景、花园、海岸、古街和慢旅行。"
+      },
+      {
+        id: "vintage-ephemera",
+        label: "复古纸料拼贴",
+        value: "视觉路线：复古纸料拼贴；旧纸、邮票、明信片、票根、收据、做旧胶带、低饱和配色和档案感标签；适合怀旧、铁路、老街、博物馆旅行。"
+      },
+      {
+        id: "urban-sketch",
+        label: "城市速写日记",
+        value: "视觉路线：城市速写日记；松弛钢笔线稿、淡彩建筑、街景纹理、地点注记和观察式手写；适合城市漫步、咖啡馆、街道和建筑记忆。"
+      },
+      {
+        id: "minimal-line",
+        label: "极简线描日记",
+        value: "视觉路线：极简线描日记；干净线条、少量色彩点缀、大面积留白、现代排版和少量关键照片/文字卡；适合打印、安静或设计感强的旅行记录。"
+      },
+      {
+        id: "mixed-media",
+        label: "混合媒材拼贴",
+        value: "视觉路线：混合媒材拼贴；撕纸、杂志切片、胶带、墨迹、照片和手写层叠；表达强烈但仍保持记忆对象清晰可编辑。"
+      }
+    ];
     const $ = (id) => document.getElementById(id);
     const state = { project: null, activePageId: null, selectedObjectId: null };
 
@@ -520,7 +577,7 @@
         schemaVersion: 1,
         title: "新的旅行手帐项目",
         description: "",
-        styleBible: "东亚粘贴式旅行手帐；可选视觉路线：Q版贴纸漫画、黑白卡通简笔画、地图信息图、拍立得照片拼贴或混合风格；白边照片贴纸、手写中文、票根卡片、地图碎片、胶带和稳定对象 ID。",
+        styleBible: "多风格旅行手帐/视觉日记；可选视觉路线：东亚贴纸漫画、kawaii贴纸日记、黑白卡通简笔画、地图信息图、拍立得照片拼贴、水彩旅行日记、复古纸料拼贴、城市速写、极简线描或混合媒材；保留照片、票根、地图、文字卡、贴纸和稳定对象 ID。",
         characters: [],
         materials: [],
         generatedImages: [],
@@ -550,6 +607,17 @@
       state.project.pages.forEach(page => page.objects ||= []);
     }
 
+    function renderStyleRoutePresets() {
+      const select = $("styleRoutePreset");
+      if (!select || select.options.length) return;
+      STYLE_ROUTE_PRESETS.forEach(route => {
+        const option = document.createElement("option");
+        option.value = route.id;
+        option.textContent = route.label;
+        select.appendChild(option);
+      });
+    }
+
     async function saveProject() {
       state.project.title = $("projectTitle").value.trim() || state.project.title;
       state.project.description = $("projectBrief").value.trim();
@@ -573,6 +641,7 @@
     }
 
     function render() {
+      renderStyleRoutePresets();
       $("projectTitle").value = state.project.title || "";
       $("projectBrief").value = state.project.description || "";
       $("styleBible").value = state.project.styleBible || "";
@@ -731,6 +800,15 @@
       reader.readAsDataURL(file);
     }
 
+    function applyStyleRoutePreset() {
+      const route = STYLE_ROUTE_PRESETS.find(item => item.id === $("styleRoutePreset").value);
+      if (!route) return;
+      $("styleBible").value = route.value;
+      state.project.styleBible = route.value;
+      renderCanvas();
+      setStatus(`已应用视觉路线：${route.label}`);
+    }
+
     function addPage() {
       const n = state.project.pages.length + 1;
       const page = { id: `P${n}`, title: `DAY ${n}`, form: "daily scrapbook page", aspect: $("imageSize").value, objects: [] };
@@ -795,15 +873,15 @@
       const objects = page.objects.map(o => `${o.id} [${o.type}] ${o.area}: ${o.content}`).join("; ");
       const materials = state.project.materials.map(m => `${m.id} ${m.type}: ${m.label} ${m.note || ""}`).join("; ");
       const prompt = [
-        `Create a ${$("imageSize").value} East Asian sticker-style travel scrapbook page in Chinese.`,
+        `Create a ${$("imageSize").value} memory-first travel scrapbook / visual journal page.`,
         `Project: ${state.project.title}.`,
         `Travel brief: ${state.project.description || "user will provide travel memories and materials"}.`,
         `Page: ${page.title}; form: ${page.form}; aspect/size: ${page.aspect || $("imageSize").value}.`,
         `Style bible: ${state.project.styleBible}.`,
         `Materials to incorporate: ${materials || "none yet; use clearly separated placeholder sticker slots"}.`,
         `Editable object slots: ${objects || "create clear replaceable IMG/TXT/CHR/STK/PNL/BG slots for the page"}.`,
-        "Visual language: follow the selected route from the style bible. The route may be cute sticker comic, black-and-white cartoon doodle, map infographic scrapbook, polaroid photo collage, or hybrid. For black-and-white cartoon doodle, use simple thick marker lines and avoid grayscale detailed manga. Keep handmade East Asian 手帐 cues: white-border object slots, washi tape, torn paper, grid/notebook paper, ticket-like scraps, map fragments, stamp marks, and short handwritten Chinese labels.",
-        "Text handling: use large readable Chinese labels only; keep exact text short; avoid tiny paragraphs.",
+        "Visual language: follow the selected route from the style bible. Possible routes include East Asian sticker comic, kawaii sticker journal, black-and-white cartoon doodle, map infographic scrapbook, polaroid photo collage, watercolor travel journal, vintage ephemera scrapbook, urban sketch journal, minimalist line journal, comic book travel page, mixed-media collage, or hybrid. Keep handmade scrapbook cues: clear object slots, tape or paper texture when appropriate, ticket-like scraps, map fragments, stamp marks, and short readable labels. For black-and-white cartoon doodle, use simple thick marker lines and avoid grayscale detailed manga.",
+        "Text handling: use large readable labels only; keep exact text short; avoid tiny paragraphs. Use Chinese labels when the project brief or style bible asks for Chinese.",
         "Negative constraints: do not make a clean travel itinerary board, do not invent personal events, do not use proprietary character likenesses unless supplied, do not flatten slots into an uneditable poster."
       ].join("\n\n");
       $("generationPrompt").value = prompt;
@@ -931,6 +1009,7 @@
     $("importBtn").onclick = () => $("importFile").click();
     $("importFile").onchange = e => importJsonFile(e.target.files[0]);
     $("exportBtn").onclick = exportJson;
+    $("applyStyleRouteBtn").onclick = applyStyleRoutePreset;
     $("addMaterialBtn").onclick = addMaterial;
     $("addPageBtn").onclick = addPage;
     $("addObjectBtn").onclick = addObject;

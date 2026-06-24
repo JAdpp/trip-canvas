@@ -1,13 +1,13 @@
 ---
 name: sticker-travel-scrapbook
-description: "Use when the user wants to create, plan, revise, evaluate, or interactively edit East Asian sticker-style travel scrapbook pages, visual travel diaries, dense collage journals, cute itinerary-memory pages, mini-comic travel handbooks, black-and-white cartoon doodle journals, map-infographic scrapbook pages, or polaroid photo collage travel journals from photos, itinerary text, tickets, notes, screenshots, character references, or an existing generated scrapbook image. Also use when the user asks for a GUI, canvas, local app, object editor, project JSON, prompt-pack exporter, or local web workbench for travel scrapbook authoring. Specializes in memory-first multimodal authoring: guiding non-expert users from messy materials through focused questions, visual-route choices, component/object drafts, confirmation, image prompts or direct image generation when available, local GUI control, and localized revisions such as replacing one sticker/photo/text card/panel without redesigning the whole page."
+description: "Use when the user wants to create, plan, revise, evaluate, or interactively edit multi-style travel scrapbook pages, visual travel journals, dense collage diaries, itinerary-memory pages, mini-comic travel handbooks, East Asian sticker-style pages, black-and-white cartoon doodle journals, map-infographic scrapbook pages, polaroid photo collage journals, watercolor travel journals, vintage scrapbook pages, urban sketch journals, minimalist line-art pages, or mixed-media travel journals from photos, itinerary text, tickets, notes, screenshots, character references, or an existing generated scrapbook image. Also use when the user asks for a GUI, canvas, local app, object editor, project JSON, prompt-pack exporter, or local web workbench. Specializes in memory-first multimodal authoring: focused questions, visual-route choice, component/object drafts, prompts or direct image generation, GUI control, and localized revisions."
 ---
 
 # Sticker Travel Scrapbook
 
 ## Mission
 
-Turn travel materials into an agent-led, editable East Asian sticker-style scrapbook authoring workflow. Do not stop at being a prompt generator: guide users from itinerary/photos/notes to memory structure, style and character decisions, component/object drafts, prompts, optional image generation, and later revisions. Prioritize personal memory-making, visual play, sticker collage, character continuity, visual-route choice, and local editability over route-first travel-guide readability.
+Turn travel materials into an agent-led, editable multi-style travel scrapbook authoring workflow. Do not stop at being a prompt generator: guide users from itinerary/photos/notes to memory structure, style and character decisions, component/object drafts, prompts, optional image generation, and later revisions. Prioritize personal memory-making, visual play, scrapbook texture, character or photo continuity, visual-route choice, and local editability over route-first travel-guide readability.
 
 Use this Skill for:
 
@@ -15,7 +15,7 @@ Use this Skill for:
 - Creating scrapbook prompt packs when the user wants exportable prompts instead of direct generation.
 - Converting an existing generated scrapbook image into an editable plan and object manifest.
 - Revising one region of a generated page while preserving the rest of the layout, characters, text, and style.
-- Choosing among visual routes such as cute sticker comic, black-and-white cartoon doodle, map-infographic scrapbook, polaroid photo collage, and hybrid variants.
+- Choosing among visual routes such as East Asian sticker comic, kawaii sticker journal, black-and-white cartoon doodle, map-infographic scrapbook, polaroid photo collage, watercolor travel journal, vintage ephemera scrapbook, urban sketch journal, minimalist line journal, and hybrid variants.
 - Designing a workflow or GUI concept for sticker-style travel memory authoring.
 
 ## Core Stance
@@ -30,7 +30,7 @@ The page may include route facts, weather, tickets, hotel, or maps, but these ar
 
 - Load `references/authoring-workflow.md` for full agent-led creation, from materials to questions, components, prompts, generation, and revision.
 - Load `references/memory-structure.md` when parsing travel photos, itinerary text, notes, tickets, screenshots, or rough memories.
-- Load `references/east-asian-visual-language.md` before page planning or prompt writing.
+- Load `references/scrapbook-visual-routes.md` before page planning or prompt writing.
 - Load `references/comic-panel-patterns.md` when the user asks for mini-comic, manga-style moments, character scenes, or multi-panel storytelling.
 - Load `references/character-consistency.md` when the user provides character references, asks for recurring travelers, mascots, pets, couple/friend avatars, or wants identity consistency.
 - Load `references/editable-object-manifest.md` whenever generating page plans, prompts, or revision instructions.
@@ -96,14 +96,19 @@ Never flatten the plan into one undifferentiated image. The manifest is the cont
 
 ### 5. Plan Visual Route, Style, And Character Consistency
 
-Select a visual route before writing prompts. Do not default every page to cute chibi comic rendering.
+Select a visual route before writing prompts. Do not default every page to East Asian cute chibi comic rendering.
 
 Useful visual routes include:
 
-- `cute sticker comic`: colorful chibi or light manga travel diary, strong character moments, speech bubbles, food and souvenir stickers.
+- `East Asian sticker comic`: dense sticker collage, light manga diary, handwritten labels, food and souvenir stickers, strong character moments.
+- `kawaii sticker journal`: bright cute icons, soft rounded characters, playful stickers, cheerful travel moments.
 - `black-and-white cartoon doodle`: simple black marker line art, rounded cartoon shapes, icons, blank caption cards, and generous white space; do not use grayscale detailed manga, grey wash, realistic hatching, or a full illustration merely converted to black and white.
 - `map infographic scrapbook`: route map as the main object, numbered stops, photo slots, transport icons, stamps, concise labels, suitable when place sequence or geography matters.
 - `polaroid photo collage`: instant-photo frames, taped snapshots, film grain, pressed flowers, receipts or map scraps, minimal character presence, suitable when real photos should dominate.
+- `watercolor travel journal`: soft washes, ink outlines, airy paper texture, suitable for scenery, slow travel, gardens, coastlines, and quiet memories.
+- `vintage ephemera scrapbook`: aged paper, stamps, receipts, postcards, muted palette, suitable for nostalgic trips, rail travel, old streets, and museums.
+- `urban sketch journal`: loose pen-and-wash city sketches, architecture notes, street textures, suitable for city walks and cafe/street scenes.
+- `minimalist line journal`: clean line art, sparse color accents, generous white space, suitable for printable pages, calm memories, or design-forward travel notes.
 - `hybrid`: combine a main route above with small comic panels, sticker objects, or photo slots when the memory needs both structure and emotion.
 
 If user-provided character/style references exist, use them as the top priority. Otherwise define a public-safe generic style bible for the selected visual route. Keep character traits consistent across pages when characters are used: face shape, hair, glasses, clothing family, body proportion, pose vocabulary, and role in the story.
