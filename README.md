@@ -1,6 +1,6 @@
 ![Sticker Travel Scrapbook banner](assets/brand/banner.jpg)
 
-# Sticker Travel Scrapbook
+# Sticker Travel Scrapbook Skill
 
 [English](README.md) | [简体中文](README.zh-CN.md) | [日本語](README.ja.md)
 
