@@ -3,7 +3,7 @@ name: sticker-travel-scrapbook
 description: "Use when the user wants to create, plan, revise, evaluate, or interactively edit multi-style travel scrapbook pages, visual travel journals, dense collage diaries, itinerary-memory pages, mini-comic travel handbooks, East Asian sticker-style pages, black-and-white cartoon doodle journals, map-infographic scrapbook pages, polaroid photo collage journals, watercolor travel journals, vintage scrapbook pages, urban sketch journals, minimalist line-art pages, or mixed-media travel journals from photos, itinerary text, tickets, notes, screenshots, character references, or an existing generated scrapbook image. Also use when the user asks for a GUI, canvas, local app, object editor, project JSON, prompt-pack exporter, or local web workbench. Specializes in memory-first multimodal authoring: focused questions, visual-route choice, component/object drafts, prompts or direct image generation, GUI control, and localized revisions."
 ---
 
-# Sticker Travel Scrapbook
+# Trip Canvas
 
 ## Mission
 

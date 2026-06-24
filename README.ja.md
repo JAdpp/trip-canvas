@@ -1,16 +1,20 @@
 ![Sticker Travel Scrapbook banner](assets/brand/banner.jpg)
 
-# ステッカー旅行スクラップブック
+# Trip Canvas 旅行スクラップブック Skill
 
 [English](README.md) | [简体中文](README.zh-CN.md) | [日本語](README.ja.md)
 
-`sticker-travel-scrapbook` は、多様なスタイルの旅行スクラップブック、ビジュアル旅行ジャーナル、ミニコミック旅行日記を作成、設計、修正、対話的に編集するための Codex Skill です。
+![AgentSkills Standard](https://img.shields.io/badge/AgentSkills-Standard-8b5cf6)
+![Codex Skill](https://img.shields.io/badge/Codex-Skill-10b981)
+![Local GUI](https://img.shields.io/badge/Local-GUI-0ea5e9)
+
+Trip Canvas は、`sticker-travel-scrapbook` の短いプロダクト名です。多様なスタイルの旅行スクラップブック、ビジュアル旅行ジャーナル、ミニコミック旅行日記を作成、設計、修正、対話的に編集するための Codex Skill です。
 
 この Skill は、整った旅程表や写真集ではなく、記憶を中心にしたビジュアル制作を重視します。旅先の場面、気分、同行者、食べ物、小物、チケット風の紙片、写真スロット、ステッカー、地図、ポラロイド、水彩、ヴィンテージ紙片、都市スケッチ、白黒カートゥーン風ドゥードル、小さな漫画的瞬間を扱います。
 
 標準では、単なるプロンプト生成器ではなく、Codex が能動的に進めるスクラップブック制作ワークフローです。ユーザーは完成した旅程、写真、メモ、大まかな好みを渡すだけでかまいません。Codex は素材を読み取り、必要な点だけ質問し、ページ/コンポーネント/オブジェクト一覧を下書きしてから、最終画像生成、プロンプト出力、または GUI での手動編集へ進めます。
 
-## サンプルギャラリー
+## 🖼️ サンプルギャラリー
 
 以下は公開用に生成した安全なサンプルです。個人の旅行写真、商用キャラクター、ブランドマスコット、実在のチケット、個人の肖像は含まれていません。
 
@@ -56,7 +60,7 @@
   </tr>
 </table>
 
-## この Skill でできること
+## ✨ この Skill でできること
 
 - 初心者ユーザーを、散らばった旅行素材から具体的なスクラップブック案へ案内します。
 - 旅行素材を、スクラップブックに使いやすい記憶シーンへ整理します。
@@ -70,10 +74,16 @@
 - ページ全体を作り直さず、写真枠、ステッカー、テキストカード、漫画コマだけを差し替える指示を作れます。
 - ローカル Web GUI を、プロジェクト編集、プロンプト作成、JSON のインポート/エクスポート、API 設定時の画像生成を行う手動コントロールモードとして提供します。
 
-## リポジトリ構成
+## 🧩 Agent Skills 互換性
+
+このリポジトリは [Agent Skills](https://agentskills.io/) の構造に沿っています。ルートに YAML frontmatter 付きの `SKILL.md` を置き、必要に応じて `references/`、`scripts/`、`assets/` を使って段階的に情報を読み込めるようにしています。
+
+インストール可能な Skill id は引き続き `sticker-travel-scrapbook` です。フォルダ名を変更する場合は、フォルダ名と `SKILL.md` の `name` フィールドを一致させてください。
+
+## 📁 リポジトリ構成
 
 ```text
-Sticker-Travel-Scrapbook/
+sticker-travel-scrapbook/
   SKILL.md
   README.md
   README.zh-CN.md
@@ -114,7 +124,7 @@ Sticker-Travel-Scrapbook/
 
 個人の旅行写真、キャラクター設定画、実在のチケット、ホテル情報、個人的な生成画像は公開リポジトリに入れないでください。
 
-## インストール
+## ⚙️ インストール
 
 このリポジトリのフォルダを Codex の skills ディレクトリにコピーし、フォルダ名を `sticker-travel-scrapbook` のままにします。
 
@@ -126,7 +136,7 @@ C:\Users\<you>\.codex\skills\sticker-travel-scrapbook
 
 Codex がすぐに Skill を検出しない場合は、Codex を再起動するか、新しいスレッドを開始してください。
 
-## Codex での基本的な使い方
+## 🚀 Codex での基本的な使い方
 
 Skill を明示的に呼び出します。初心者向けには、旅行素材を渡して Codex に不足している判断を進めてもらえます。
 
@@ -158,7 +168,7 @@ Keep the people, title, museum cards, captions, and overall layout unchanged.
 Give me only a localized revision prompt.
 ```
 
-## ローカル GUI
+## 🛠️ ローカル GUI
 
 Skill には、完全に手動で制御するための軽量なローカル GUI が含まれています。初期状態では空のプロジェクトから開始します。
 
@@ -176,7 +186,7 @@ http://127.0.0.1:8765/
 
 GUI では、旅行 brief、スタイル設定、素材メモ、ページとオブジェクト作成、編集可能なオブジェクト ID、現在ページのプロンプト生成、プロジェクト JSON のインポート/エクスポート、API 有効時の生成画像ギャラリーを扱えます。Codex との対話で進めるより、自分でオブジェクトや生成設定を直接制御したい場合に使います。
 
-## 任意の GUI 画像生成
+## 🎨 任意の GUI 画像生成
 
 サーバー起動前に `OPENAI_API_KEY` を設定すると、GUI から OpenAI Images API を呼び出せます。
 
@@ -185,7 +195,7 @@ $env:OPENAI_API_KEY="sk-..."
 python "C:\Users\<you>\.codex\skills\sticker-travel-scrapbook\scripts\server.py" --project ".\sticker-travel-scrapbook-project.json"
 ```
 
-## 検証
+## ✅ 検証
 
 skill creator の検証スクリプトで Skill を確認できます。
 
@@ -200,6 +210,12 @@ python "C:\Users\<you>\.codex\skills\.system\skill-creator\scripts\quick_validat
 Skill is valid!
 ```
 
-## 現在の範囲
+Agent Skills の公式リファレンス検証ツールをインストールしている場合は、次のようにも確認できます。
+
+```bash
+skills-ref validate ./sticker-travel-scrapbook
+```
+
+## 📌 現在の範囲
 
 これは Skill とローカル GUI のプロトタイプです。標準の Skill 動作は、Codex が能動的に進めるスクラップブック制作ワークフローです。プロンプトパックと GUI は、そのワークフロー内の二つのコントロール方法です。直接画像生成できるかどうかは、ユーザーの Codex/実行環境で利用できる画像ツールまたは API key に依存します。

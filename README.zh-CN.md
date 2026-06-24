@@ -1,16 +1,20 @@
 ![Sticker Travel Scrapbook banner](assets/brand/banner.jpg)
 
-# 贴纸旅行手帐
+# Trip Canvas 旅行手帐 Skill
 
 [English](README.md) | [简体中文](README.zh-CN.md) | [日本語](README.ja.md)
 
-`sticker-travel-scrapbook` 是一个 Codex Skill，用来创建、规划、修改和交互式编辑多风格旅行手帐页面、视觉旅行日记与小漫画旅行日记。
+![AgentSkills Standard](https://img.shields.io/badge/AgentSkills-Standard-8b5cf6)
+![Codex Skill](https://img.shields.io/badge/Codex-Skill-10b981)
+![Local GUI](https://img.shields.io/badge/Local-GUI-0ea5e9)
+
+Trip Canvas 是 `sticker-travel-scrapbook` 更短的产品展示名。它是一个 Codex Skill，用来创建、规划、修改和交互式编辑多风格旅行手帐页面、视觉旅行日记与小漫画旅行日记。
 
 它的重点不是规整的旅行攻略或照片书，而是记忆优先的视觉创作：场景、情绪、同行者、食物、小物件、票据感碎片、照片槽位、贴纸、地图、拍立得、水彩、复古纸料、城市速写、黑白简笔画和小漫画瞬间。
 
 默认情况下，它不是单纯的 prompt 生成器，而是一个由 Codex 主动推进的手帐创作流程。用户可以直接发送已经完成的旅行行程、照片、笔记和粗略偏好；Codex 会识别材料、只追问关键缺口、先草拟页面/组件/对象清单，再帮助用户生成最终手帐图、导出 prompt，或打开 GUI 进行完全手动控制。
 
-## 示例图集
+## 🖼️ 示例图集
 
 下面是公开安全的生成示例，不包含私人旅行照片、商业角色、品牌吉祥物、真实票据或私人肖像。
 
@@ -56,7 +60,7 @@
   </tr>
 </table>
 
-## 这个 Skill 能做什么
+## ✨ 这个 Skill 能做什么
 
 - 引导小白用户从零散旅行材料走到具体手帐方案。
 - 把旅行素材整理成适合手帐创作的记忆场景。
@@ -70,10 +74,16 @@
 - 支持只替换某个照片槽、贴纸、文字卡片或漫画分镜，而不重做整页。
 - 提供本地网页 GUI，作为完全手动控制模式，用于编辑项目、生成 prompt、导入导出 JSON，以及在配置 API key 后直接生图。
 
-## 仓库结构
+## 🧩 Agent Skills 兼容性
+
+这个仓库遵循 [Agent Skills](https://agentskills.io/) 的结构：根目录包含带 YAML frontmatter 的 `SKILL.md`，并通过可选的 `references/`、`scripts/` 和 `assets/` 目录实现渐进式加载。
+
+当前可安装的 Skill id 仍然是 `sticker-travel-scrapbook`。如果重命名文件夹，需要让文件夹名和 `SKILL.md` 里的 `name` 字段保持一致。
+
+## 📁 仓库结构
 
 ```text
-Sticker-Travel-Scrapbook/
+sticker-travel-scrapbook/
   SKILL.md
   README.md
   README.zh-CN.md
@@ -112,7 +122,7 @@ Sticker-Travel-Scrapbook/
     character-profile.example.yaml
 ```
 
-## 安装
+## ⚙️ 安装
 
 把这个仓库文件夹复制到 Codex 的 skills 目录，并把文件夹名保持为 `sticker-travel-scrapbook`。
 
@@ -124,7 +134,7 @@ C:\Users\<you>\.codex\skills\sticker-travel-scrapbook
 
 如果 Codex 没有立刻识别 Skill，可以重启 Codex 或开启一个新线程。
 
-## 在 Codex 中使用
+## 🚀 在 Codex 中使用
 
 可以显式调用这个 Skill。对于小白用户，可以直接给旅行素材，让 Codex 帮你推进缺失决策：
 
@@ -155,7 +165,7 @@ Use $sticker-travel-scrapbook。
 请保留人物、标题、展品卡片、说明文字和整体版式，只给我局部修改 prompt。
 ```
 
-## 本地 GUI
+## 🛠️ 本地 GUI
 
 Skill 内置一个用于完全手动控制的轻量本地 GUI，默认从空白项目开始。
 
@@ -173,7 +183,7 @@ http://127.0.0.1:8765/
 
 GUI 支持旅行 brief、风格设定、素材笔记、页面和对象创建、可编辑对象 ID、当前页面 prompt 生成、项目 JSON 导入导出，以及在启用 API 后查看生成图片。当你想自己直接控制对象和生成参数，而不是通过对话让 Codex 带着走时，使用 GUI。
 
-## 可选的 GUI 生图
+## 🎨 可选的 GUI 生图
 
 如果启动服务器前设置了 `OPENAI_API_KEY`，GUI 可以调用 OpenAI Images API：
 
@@ -184,7 +194,7 @@ python "C:\Users\<you>\.codex\skills\sticker-travel-scrapbook\scripts\server.py"
 
 没有 `OPENAI_API_KEY` 时，GUI 仍然可以构建和导出 prompt；点击直接生图会显示明确的 API key 提示。
 
-## 校验
+## ✅ 校验
 
 可以用 skill creator 的校验脚本检查 Skill：
 
@@ -199,6 +209,12 @@ python "C:\Users\<you>\.codex\skills\.system\skill-creator\scripts\quick_validat
 Skill is valid!
 ```
 
-## 当前边界
+如果已经安装 Agent Skills 官方参考校验器，也可以使用：
+
+```bash
+skills-ref validate ./sticker-travel-scrapbook
+```
+
+## 📌 当前边界
 
 这是一个 Skill 加本地 GUI 原型。默认 Skill 行为是由 Codex 主动推进的手帐创作流程；prompt pack 和 GUI 是这个流程中的两种控制方式。是否能直接生图取决于用户当前 Codex/运行环境中可用的图像工具或 API key。

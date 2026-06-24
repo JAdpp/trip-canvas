@@ -1,16 +1,20 @@
 ![Sticker Travel Scrapbook banner](assets/brand/banner.jpg)
 
-# Sticker Travel Scrapbook Skill
+# Trip Canvas Skill
 
 [English](README.md) | [简体中文](README.zh-CN.md) | [日本語](README.ja.md)
 
-`sticker-travel-scrapbook` is a Codex Skill for creating, planning, revising, and interactively editing multi-style travel scrapbook pages, visual travel journals, and mini-comic travel diaries.
+![AgentSkills Standard](https://img.shields.io/badge/AgentSkills-Standard-8b5cf6)
+![Codex Skill](https://img.shields.io/badge/Codex-Skill-10b981)
+![Local GUI](https://img.shields.io/badge/Local-GUI-0ea5e9)
+
+Trip Canvas is the shorter product name for `sticker-travel-scrapbook`, a Codex Skill for creating, planning, revising, and interactively editing multi-style travel scrapbook pages, visual travel journals, and mini-comic travel diaries.
 
 It is built for memory-first visual authoring: personal scenes, moods, companions, meals, objects, ticket-like scraps, photo slots, stickers, maps, polaroids, watercolor pages, vintage ephemera, urban sketches, black-and-white doodles, and small comic moments. It is not a route-first itinerary board or a clean travel photo book.
 
 By default, it is an agent-led workflow rather than only a prompt generator. A user can send a completed trip plan, photos, notes, and rough preferences; Codex should parse the materials, ask only the key missing questions, draft the page/components/object manifest, and then help generate the final scrapbook image, export prompts, or open the GUI for manual control.
 
-## Example Gallery
+## 🖼️ Example Gallery
 
 These are public-safe generated examples. They do not use private travel photos, commercial characters, brand mascots, real tickets, or private people.
 
@@ -56,7 +60,7 @@ Visual route examples:
   </tr>
 </table>
 
-## What The Skill Does
+## ✨ What The Skill Does
 
 - Guides non-expert users from messy travel materials to a concrete scrapbook plan.
 - Structures travel materials into scrapbook-ready memory scenes.
@@ -70,10 +74,16 @@ Visual route examples:
 - Supports localized revision prompts, such as replacing one image slot without redesigning the full page.
 - Includes a local web GUI as a manual-control mode for project editing, prompt building, JSON import/export, and optional API-backed image generation.
 
-## Repository Layout
+## 🧩 Agent Skills Compatibility
+
+This repository follows the [Agent Skills](https://agentskills.io/) structure: a root `SKILL.md` with YAML frontmatter, plus optional `references/`, `scripts/`, and `assets/` directories for progressive disclosure.
+
+The installable Skill id remains `sticker-travel-scrapbook`. If you rename the folder, keep the folder name and the `name` field in `SKILL.md` identical.
+
+## 📁 Repository Layout
 
 ```text
-Sticker-Travel-Scrapbook/
+sticker-travel-scrapbook/
   SKILL.md
   README.md
   README.zh-CN.md
@@ -112,7 +122,7 @@ Sticker-Travel-Scrapbook/
     character-profile.example.yaml
 ```
 
-## Installation
+## ⚙️ Installation
 
 Copy this repository folder into a Codex skills directory and keep the folder name as `sticker-travel-scrapbook`.
 
@@ -124,7 +134,7 @@ C:\Users\<you>\.codex\skills\sticker-travel-scrapbook
 
 If Codex does not detect the Skill immediately, restart Codex or start a new thread.
 
-## Basic Usage In Codex
+## 🚀 Basic Usage In Codex
 
 Explicitly invoke the Skill. For a beginner-friendly flow, you can simply give the trip materials and let Codex guide the missing decisions:
 
@@ -156,7 +166,7 @@ Keep the people, title, museum cards, captions, and overall layout unchanged.
 Give me only a localized revision prompt.
 ```
 
-## Local GUI
+## 🛠️ Local GUI
 
 The Skill includes a lightweight local GUI for full manual control. It starts from a blank project by default.
 
@@ -174,7 +184,7 @@ http://127.0.0.1:8765/
 
 The GUI supports travel-brief editing, style-bible editing, material notes, page and object creation, editable object IDs, current-page image prompt generation, project JSON import/export, and a generated-image gallery when API generation is enabled. Use it when you want direct control over the objects and generation settings instead of an agent-led dialogue.
 
-## Optional GUI Image Generation
+## 🎨 Optional GUI Image Generation
 
 The GUI can call the OpenAI Images API if `OPENAI_API_KEY` is set in the server environment before launch:
 
@@ -183,7 +193,7 @@ $env:OPENAI_API_KEY="sk-..."
 python "C:\Users\<you>\.codex\skills\sticker-travel-scrapbook\scripts\server.py" --project ".\sticker-travel-scrapbook-project.json"
 ```
 
-## Validation
+## ✅ Validation
 
 Validate the Skill with the built-in skill creator validator:
 
@@ -198,7 +208,13 @@ Expected output:
 Skill is valid!
 ```
 
-## Current Boundary
+For Agent Skills reference validation, use the official reference validator when available:
+
+```bash
+skills-ref validate ./sticker-travel-scrapbook
+```
+
+## 📌 Current Boundary
 
 This is a Skill plus local GUI prototype. The default Skill behavior is an agent-led scrapbook authoring workflow; prompt packs and the GUI are two control surfaces inside that workflow. Direct image generation depends on the image tools or API keys available in the user's Codex/runtime environment.
 
