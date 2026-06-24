@@ -1,12 +1,20 @@
-![Trip Canvas banner](assets/brand/banner.jpg)
+<p align="center">
+  <img src="assets/brand/banner.jpg" alt="Trip Canvas banner">
+</p>
 
-# Trip Canvas 旅行手帐 Skill
+<h1 align="center">🧳 Trip Canvas 旅行手帐 Skill</h1>
 
-[English](README.md) | [简体中文](README.zh-CN.md) | [日本語](README.ja.md)
+<p align="center">
+  <a href="README.md">English</a> ·
+  <a href="README.zh-CN.md">简体中文</a> ·
+  <a href="README.ja.md">日本語</a>
+</p>
 
-![AgentSkills Standard](https://img.shields.io/badge/AgentSkills-Standard-8b5cf6)
-![Codex Skill](https://img.shields.io/badge/Codex-Skill-10b981)
-![Local GUI](https://img.shields.io/badge/Local-GUI-0ea5e9)
+<p align="center">
+  <img src="https://img.shields.io/badge/AgentSkills-Standard-8b5cf6" alt="AgentSkills Standard">
+  <img src="https://img.shields.io/badge/Codex-Skill-10b981" alt="Codex Skill">
+  <img src="https://img.shields.io/badge/Local-GUI-0ea5e9" alt="Local GUI">
+</p>
 
 Trip Canvas 是 `sticker-travel-scrapbook` 更短的产品展示名。它是一个 Codex Skill，用来创建、规划、修改和交互式编辑多风格旅行手帐页面、视觉旅行日记与小漫画旅行日记。
 
@@ -124,7 +132,16 @@ sticker-travel-scrapbook/
 
 ## ⚙️ 安装
 
-把这个仓库文件夹复制到 Codex 的 skills 目录，并把文件夹名保持为 `sticker-travel-scrapbook`。
+在 Claude Code、Codex、OpenClaw 等支持 Skill 的 Agent 里，直接说：
+
+```text
+帮我安装这个 skill：https://github.com/JAdpp/Sticker-Travel-Scrapbook-Skill
+安装后的 skill 文件夹名请用 sticker-travel-scrapbook。
+```
+
+Agent 会自己 clone 或复制到对应的 skills 目录，不用你操心路径。安装后的文件夹名请保持为 `sticker-travel-scrapbook`，因为 `SKILL.md` 里的 `name` 使用这个 id。
+
+手动安装备用：把这个仓库文件夹复制到 skills 目录，并把文件夹名改成 `sticker-travel-scrapbook`。
 
 Windows 用户常见位置：
 

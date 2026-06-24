@@ -1,12 +1,20 @@
-![Trip Canvas banner](assets/brand/banner.jpg)
+<p align="center">
+  <img src="assets/brand/banner.jpg" alt="Trip Canvas banner">
+</p>
 
-# Trip Canvas Skill (for Codex)
+<h1 align="center">🧳 Trip Canvas Skill (for Codex)</h1>
 
-[English](README.md) | [简体中文](README.zh-CN.md) | [日本語](README.ja.md)
+<p align="center">
+  <a href="README.md">English</a> ·
+  <a href="README.zh-CN.md">简体中文</a> ·
+  <a href="README.ja.md">日本語</a>
+</p>
 
-![AgentSkills Standard](https://img.shields.io/badge/AgentSkills-Standard-8b5cf6)
-![Codex Skill](https://img.shields.io/badge/Codex-Skill-10b981)
-![Local GUI](https://img.shields.io/badge/Local-GUI-0ea5e9)
+<p align="center">
+  <img src="https://img.shields.io/badge/AgentSkills-Standard-8b5cf6" alt="AgentSkills Standard">
+  <img src="https://img.shields.io/badge/Codex-Skill-10b981" alt="Codex Skill">
+  <img src="https://img.shields.io/badge/Local-GUI-0ea5e9" alt="Local GUI">
+</p>
 
 Trip Canvas is the shorter product name for `sticker-travel-scrapbook`, a Codex Skill for creating, planning, revising, and interactively editing multi-style travel scrapbook pages, visual travel journals, and mini-comic travel diaries.
 
@@ -124,7 +132,17 @@ sticker-travel-scrapbook/
 
 ## ⚙️ Installation
 
-Copy this repository folder into a Codex skills directory and keep the folder name as `sticker-travel-scrapbook`.
+In Claude Code, Codex, OpenClaw, or any Agent that supports Skills, just say:
+
+```text
+Help me install this skill:
+https://github.com/JAdpp/Sticker-Travel-Scrapbook-Skill
+Please install it as the skill folder named sticker-travel-scrapbook.
+```
+
+The Agent should clone or copy it into the right skills directory for your environment. Keep the installed folder name as `sticker-travel-scrapbook`, because `SKILL.md` uses that id.
+
+Manual fallback: copy this repository folder into a skills directory and name the folder `sticker-travel-scrapbook`.
 
 On Windows, a user-level location is typically:
 
