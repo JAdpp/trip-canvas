@@ -12,9 +12,24 @@
 
 以下は公開用に生成した安全なサンプルです。個人の旅行写真、商用キャラクター、ブランドマスコット、実在のチケット、個人の肖像は含まれていません。
 
-| 京都の雨の寺町 | ソウルの韓屋村と夜市 | 台湾の海沿い列車とランタンの旧市街 |
-| --- | --- | --- |
-| <img src="assets/examples/kyoto-rainy-temple.jpg" alt="京都の雨の寺町スクラップブック例" width="260"> | <img src="assets/examples/seoul-hanok-market.jpg" alt="ソウル韓屋村と夜市スクラップブック例" width="260"> | <img src="assets/examples/taiwan-coastal-train.jpg" alt="台湾海沿い列車スクラップブック例" width="260"> |
+<table>
+  <tr>
+    <td width="44%" rowspan="2" valign="top">
+      <strong>縦長ページ：京都の雨の寺町</strong><br>
+      <img src="assets/examples/kyoto-rainy-temple.jpg" alt="京都の雨の寺町スクラップブック例" width="100%">
+    </td>
+    <td width="56%" valign="top">
+      <strong>単ページ：ソウルの韓屋村と夜市</strong><br>
+      <img src="assets/examples/seoul-hanok-market.jpg" alt="ソウル韓屋村と夜市スクラップブック例" width="100%">
+    </td>
+  </tr>
+  <tr>
+    <td width="56%" valign="top">
+      <strong>見開き：台湾の海沿い列車とランタンの旧市街</strong><br>
+      <img src="assets/examples/taiwan-coastal-train.jpg" alt="台湾海沿い列車スクラップブック例" width="100%">
+    </td>
+  </tr>
+</table>
 
 ## この Skill でできること
 
@@ -85,7 +100,7 @@ Skill を明示的に呼び出します。
 
 ```text
 Use $sticker-travel-scrapbook.
-I want to create an East Asian sticker-style travel scrapbook / mini-comic page, not a clean travel guide.
+I want to create an East Asian sticker-style travel scrapbook / mini-comic page.
 
 Trip content:
 June 19, city park night visit, summer festival. Key memories include night lights, a small parade, a roller coaster, snacks, fireworks, and walking back through a lively crowd. The mood is excited, warm, and celebratory.
@@ -135,21 +150,6 @@ $env:OPENAI_API_KEY="sk-..."
 python "C:\Users\<you>\.codex\skills\sticker-travel-scrapbook\scripts\server.py" --project ".\sticker-travel-scrapbook-project.json"
 ```
 
-`OPENAI_API_KEY` がない場合でも、GUI はプロンプトの作成とエクスポートに使えます。直接画像生成を押すと、API key が未設定であることを明確に表示します。
-
-## プライバシーと公開素材
-
-コミットしないもの：
-
-- 個人のキャラクター参照画像。
-- 実際の旅行写真。
-- チケットのスキャンやホテル情報。
-- 個人の位置履歴や履歴エクスポート。
-- 個人の肖像や私的 IP を含む生成画像。
-- API key、cookie、アカウント情報。
-
-公開サンプルには、オリジナルの一般的な旅行者、空白のチケット風紙片、抽象的なキャプション線、公開しても安全な旅行シーンを使ってください。
-
 ## 検証
 
 skill creator の検証スクリプトで Skill を確認できます。
@@ -168,5 +168,3 @@ Skill is valid!
 ## 現在の範囲
 
 これは Skill とローカル GUI のプロトタイプです。GUI は Codex や別の画像ツール向けにプロンプトを作成/エクスポートできます。また、`OPENAI_API_KEY` を設定した場合は OpenAI Images API を直接呼び出せます。
-
-GUI のボタンが Codex を自動で起動し、Codex の内部画像生成ツールを呼び出すような完全な plugin/MCP ブリッジは、まだ実装していません。

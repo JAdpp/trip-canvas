@@ -12,9 +12,24 @@ It is built for memory-first visual authoring: personal scenes, moods, companion
 
 These are public-safe generated examples. They do not use private travel photos, commercial characters, brand mascots, real tickets, or private people.
 
-| Kyoto rainy temple street | Seoul hanok village and night market | Taiwan coastal train and lantern old street |
-| --- | --- | --- |
-| <img src="assets/examples/kyoto-rainy-temple.jpg" alt="Kyoto rainy temple scrapbook example" width="260"> | <img src="assets/examples/seoul-hanok-market.jpg" alt="Seoul hanok market scrapbook example" width="260"> | <img src="assets/examples/taiwan-coastal-train.jpg" alt="Taiwan coastal train scrapbook example" width="260"> |
+<table>
+  <tr>
+    <td width="44%" rowspan="2" valign="top">
+      <strong>Long page: Kyoto rainy temple street</strong><br>
+      <img src="assets/examples/kyoto-rainy-temple.jpg" alt="Kyoto rainy temple scrapbook example" width="100%">
+    </td>
+    <td width="56%" valign="top">
+      <strong>Single page: Seoul hanok village and night market</strong><br>
+      <img src="assets/examples/seoul-hanok-market.jpg" alt="Seoul hanok market scrapbook example" width="100%">
+    </td>
+  </tr>
+  <tr>
+    <td width="56%" valign="top">
+      <strong>Two-page spread: Taiwan coastal train and lantern old street</strong><br>
+      <img src="assets/examples/taiwan-coastal-train.jpg" alt="Taiwan coastal train scrapbook example" width="100%">
+    </td>
+  </tr>
+</table>
 
 ## What The Skill Does
 

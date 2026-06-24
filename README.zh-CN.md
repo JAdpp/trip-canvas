@@ -12,9 +12,24 @@
 
 下面是公开安全的生成示例，不包含私人旅行照片、商业角色、品牌吉祥物、真实票据或私人肖像。
 
-| 京都雨天寺社街 | 首尔韩屋村与夜市 | 台湾海岸火车与灯笼老街 |
-| --- | --- | --- |
-| <img src="assets/examples/kyoto-rainy-temple.jpg" alt="京都雨天寺社街手帐示例" width="260"> | <img src="assets/examples/seoul-hanok-market.jpg" alt="首尔韩屋村夜市手帐示例" width="260"> | <img src="assets/examples/taiwan-coastal-train.jpg" alt="台湾海岸火车手帐示例" width="260"> |
+<table>
+  <tr>
+    <td width="44%" rowspan="2" valign="top">
+      <strong>长条页：京都雨天寺社街</strong><br>
+      <img src="assets/examples/kyoto-rainy-temple.jpg" alt="京都雨天寺社街手帐示例" width="100%">
+    </td>
+    <td width="56%" valign="top">
+      <strong>单页：首尔韩屋村与夜市</strong><br>
+      <img src="assets/examples/seoul-hanok-market.jpg" alt="首尔韩屋村夜市手帐示例" width="100%">
+    </td>
+  </tr>
+  <tr>
+    <td width="56%" valign="top">
+      <strong>双页：台湾海岸火车与灯笼老街</strong><br>
+      <img src="assets/examples/taiwan-coastal-train.jpg" alt="台湾海岸火车手帐示例" width="100%">
+    </td>
+  </tr>
+</table>
 
 ## 这个 Skill 能做什么
 
