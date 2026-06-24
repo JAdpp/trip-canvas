@@ -65,8 +65,6 @@ Sticker-Travel-Scrapbook/
     character-profile.example.yaml
 ```
 
-Keep private travel photos, character sheets, ticket scans, hotel details, and generated personal images out of the public repository.
-
 ## Installation
 
 Copy this repository folder into a Codex skills directory and keep the folder name as `sticker-travel-scrapbook`.
@@ -85,7 +83,7 @@ Explicitly invoke the Skill:
 
 ```text
 Use $sticker-travel-scrapbook.
-I want to create an East Asian sticker-style travel scrapbook / mini-comic page, not a clean travel guide.
+I want to create an East Asian sticker-style travel scrapbook / mini-comic page.
 
 Trip content:
 June 19, city park night visit, summer festival. Key memories include night lights, a small parade, a roller coaster, snacks, fireworks, and walking back through a lively crowd. The mood is excited, warm, and celebratory.
@@ -135,21 +133,6 @@ $env:OPENAI_API_KEY="sk-..."
 python "C:\Users\<you>\.codex\skills\sticker-travel-scrapbook\scripts\server.py" --project ".\sticker-travel-scrapbook-project.json"
 ```
 
-Without `OPENAI_API_KEY`, the GUI still builds and exports prompts, but direct image generation will show a clear API-key warning.
-
-## Privacy And Public Assets
-
-Do not commit:
-
-- private character references.
-- real travel photos.
-- ticket scans or hotel details.
-- personal location/history exports.
-- generated images containing private people or private IP.
-- API keys or cookies.
-
-Public examples should use original generic travelers, blank ticket-like scraps, abstract caption marks, and public-safe scenes.
-
 ## Validation
 
 Validate the Skill with the built-in skill creator validator:
@@ -169,4 +152,3 @@ Skill is valid!
 
 This is a Skill plus local GUI prototype. The GUI can either build/export prompts for Codex or another image tool, or call the OpenAI Images API directly when `OPENAI_API_KEY` is configured.
 
-It does not yet implement a full plugin/MCP bridge where a GUI button automatically wakes Codex and makes Codex call its internal image tool.
