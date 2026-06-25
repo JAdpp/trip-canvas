@@ -26,6 +26,16 @@ Use `Source` values:
 - `needs user material`
 - `needs verification`
 
+## Object Map Preview
+
+When planning a new page and an image-generation tool/API is available, turn the manifest into a low-fidelity object map preview. The image should make object placement visible, not final art quality.
+
+- Label each major placeholder with its object ID.
+- Group related objects visually: photo slots, text cards, character stickers, panels, decorative stickers, background zones.
+- Use simple boxes, arrows, color blocks, tape strips, and thumbnail frames.
+- Keep object IDs large enough to read. Avoid relying on tiny captions.
+- If the image model may garble labels, also include the exact ID-to-object table in text next to the preview.
+
 ## Editable Rules
 
 - Photo slots should keep border, tilt, approximate size, and label position during replacement.

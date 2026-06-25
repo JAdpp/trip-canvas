@@ -1,13 +1,13 @@
 ---
 name: trip-canvas
-description: "Use when the user wants to create, plan, revise, evaluate, or interactively edit multi-style travel scrapbook pages, visual travel journals, dense collage diaries, itinerary-memory pages, mini-comic travel handbooks, East Asian sticker-style pages, black-and-white cartoon doodle journals, map-infographic scrapbook pages, polaroid photo collage journals, watercolor travel journals, vintage scrapbook pages, urban sketch journals, minimalist line-art pages, or mixed-media travel journals from photos, itinerary text, tickets, notes, screenshots, character references, or an existing generated scrapbook image. Also use when the user asks for a GUI, canvas, local app, object editor, project JSON, prompt-pack exporter, or local web workbench. Specializes in memory-first multimodal authoring: focused questions, visual-route choice, component/object drafts, prompts or direct image generation, GUI control, and localized revisions."
+description: "Use when the user wants to create, plan, revise, evaluate, or interactively edit multi-style travel scrapbook pages, visual travel journals, dense collage diaries, itinerary-memory pages, mini-comic travel handbooks, East Asian sticker-style pages, black-and-white cartoon doodle journals, map-infographic scrapbook pages, polaroid photo collage journals, watercolor travel journals, vintage scrapbook pages, urban sketch journals, minimalist line-art pages, or mixed-media travel journals from photos, itinerary text, tickets, notes, screenshots, character references, or an existing generated scrapbook image. Also use for GUI, canvas, local app, object editor, project JSON, prompt-pack export, preview sketch, layout mockup, or local web workbench. Specializes in memory-first multimodal authoring: focused questions, visual-route choice, component/object drafts, low-fidelity layout and object-map previews when image generation is available, final prompts or images, GUI control, and localized revisions."
 ---
 
 # Trip Canvas
 
 ## Mission
 
-Turn travel materials into an agent-led, editable multi-style travel scrapbook authoring workflow. Do not stop at being a prompt generator: guide users from itinerary/photos/notes to memory structure, style and character decisions, component/object drafts, prompts, optional image generation, and later revisions. Prioritize personal memory-making, visual play, scrapbook texture, character or photo continuity, visual-route choice, and local editability over route-first travel-guide readability.
+Turn travel materials into an agent-led, editable multi-style travel scrapbook authoring workflow. Do not stop at being a prompt generator: guide users from itinerary/photos/notes to memory structure, style and character decisions, component/object drafts, automatic low-fidelity layout/object-map previews when image generation is available, prompts, optional final image generation, and later revisions. Prioritize personal memory-making, visual play, scrapbook texture, character or photo continuity, visual-route choice, and local editability over route-first travel-guide readability.
 
 Use this Skill for:
 
@@ -22,7 +22,7 @@ Use this Skill for:
 
 Do not treat the output as a normal travel diary, photo book, itinerary board, or generic collage poster. Treat it as a handmade-feeling visual memory artifact:
 
-`real trip materials -> sufficiency check -> memory scenes -> page/story structure -> editable object manifest -> visual route + style/character bible -> component draft -> user confirmation -> image prompts, direct generation, GUI project, or local revision instructions`
+`real trip materials -> sufficiency check -> memory scenes -> page/story structure -> editable object manifest -> visual route + style/character bible -> component draft -> low-fidelity layout/object-map preview -> user confirmation -> image prompts, direct generation, GUI project, or local revision instructions`
 
 The page may include route facts, weather, tickets, hotel, or maps, but these are supporting anchors. The main subject is the user's remembered experience, scenes, moods, companions, food, objects, jokes, and small visual episodes.
 
@@ -121,13 +121,22 @@ For new pages, produce a staged authoring result rather than only a prompt:
 
 1. `【1. 旅行记忆结构化】`
 2. `【2. 缺失信息与默认假设】`
-3. `【3. 页面形式与版式建议】`
-4. `【4. 可编辑对象清单与组件草案】`
+3. `【3. 页面形式与版式建议 + 草图预览】`
+4. `【4. 可编辑对象清单与组件草案 + 对象地图】`
 5. `【5. 风格、人物形象与文字清单】`
 6. `【6. 生图 prompt / 组件 prompt】`
 7. `【7. 下一步确认】`
 
 In the component draft, separate the final page into replaceable units: photo slots, generated scene panels, character stickers, decorative stickers, map/ticket scraps, text cards, speech bubbles, and background paper. If the user wants staged control, ask them to confirm or revise these components before final page generation.
+
+After sections 3 and 4, if an image-generation tool/API is available and the user did not opt out, automatically generate a low-fidelity planning preview before asking for final-page confirmation. Do not treat this as the final scrapbook image. The preview should usually be one planning-board image containing:
+
+- a rough page layout sketch with large zones for title/date, anchor image, memory clusters, panels, photo slots, maps/tickets, captions, and decorative stickers.
+- an editable object map that visibly labels the same zones with IDs such as `P1-IMG1`, `P1-TXT1`, `P1-CHR1`, `P1-PNL1`, `P1-STK1`, and `P1-BG1`.
+- simple placeholders, arrows, color blocks, tape outlines, and thumbnail frames rather than polished final illustration.
+- large readable ID labels; keep exact user-facing Chinese/Japanese/Korean text outside the image preview when correctness matters.
+
+If image generation is unavailable, provide the preview-generation prompt and a compact text fallback. The fallback is not enough when an image tool is available.
 
 When an image-generation tool or API is available and the user asks for direct generation, use it after the component plan is clear. If the user has not explicitly asked to generate immediately, ask whether to generate component drafts, generate the final scrapbook page, export a prompt pack, or open the GUI project.
 
@@ -151,6 +160,7 @@ If `OPENAI_API_KEY` is set before launching the server, the GUI can call the Ope
 
 - Optimize for personal memory, sticker collage, and visual authorship before travel-guide utility.
 - Do not reduce full creation requests to one prompt. Use guided questions, object/component planning, confirmation, and generation/export steps.
+- For new page planning, do not stop at pure text for layout and object manifest when image generation is available; create a low-fidelity layout/object-map preview automatically.
 - Preserve user facts and user-written captions unless explicitly asked to revise them.
 - Keep every page locally editable through stable object IDs.
 - Keep characters consistent, but do not let character art erase memory materials.

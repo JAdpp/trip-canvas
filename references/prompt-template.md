@@ -2,6 +2,8 @@
 
 Use this for final page prompts or component-level prompts after the memory structure, object manifest, visual route, and component draft are clear. Fill every bracket with page-specific content. Do not write "same as above".
 
+For low-fidelity planning previews, use the shorter preview prompt in `references/authoring-workflow.md` instead of this final-art prompt. Planning previews should show layout and object IDs, not polished final illustration.
+
 ```text
 Create a [aspect ratio] memory-first travel scrapbook / visual journal page using the selected visual route: [East Asian sticker comic / kawaii sticker journal / black-and-white cartoon doodle / map infographic scrapbook / polaroid photo collage / watercolor travel journal / vintage ephemera scrapbook / urban sketch journal / minimalist line journal / comic book travel page / mixed-media collage / hybrid]. The page should feel handmade, layered, object-rich, and memory-first, not like a clean travel itinerary board or generic photo book.
 

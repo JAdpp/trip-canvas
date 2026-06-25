@@ -22,6 +22,8 @@ It is built for memory-first visual authoring: personal scenes, moods, companion
 
 By default, it is an agent-led workflow rather than only a prompt generator. A user can send a completed trip plan, photos, notes, and rough preferences; Codex should parse the materials, ask only the key missing questions, draft the page/components/object manifest, and then help generate the final scrapbook image, export prompts, or open the GUI for manual control.
 
+When image generation is available, Trip Canvas should also create a low-fidelity layout and object-map preview during planning, so users can see the page structure before approving the final image.
+
 ## 🖼️ Example Gallery
 
 Format and size range, using one cute sticker comic route:
@@ -74,6 +76,7 @@ Visual route examples:
 - Plans multi-style scrapbook, visual journal, and mini-comic pages.
 - Chooses among visual routes such as East Asian sticker comic, kawaii sticker journal, black-and-white cartoon doodle, map infographic, polaroid photo collage, watercolor travel journal, vintage ephemera scrapbook, urban sketch journal, minimalist line journal, comic book travel page, and mixed-media collage.
 - Creates editable object manifests with stable IDs such as `P1-IMG1`, `P1-TXT1`, `P1-CHR1`, `P1-STK1`, and `P1-PNL1`.
+- Automatically creates low-fidelity layout and editable-object-map previews when an image-generation tool/API is available.
 - Drafts components such as character stickers, photo slots, scene panels, text cards, map/ticket scraps, and decorative stickers before final page generation when the user wants staged control.
 - Maintains character and style consistency across pages.
 - Generates copyable image prompts, component prompts, or final images when an image-generation tool/API is available and requested.
@@ -163,8 +166,8 @@ June 19, city park night visit, summer festival. Key memories include night ligh
 Please output:
 1. A structured travel-memory table
 2. Any key missing questions or default assumptions
-3. Page format and layout suggestions
-4. An editable object manifest and component draft using IDs such as P1-IMG1 / P1-TXT1 / P1-CHR1 / P1-PNL1
+3. Page format and layout suggestions, plus a low-fidelity layout preview when image generation is available
+4. An editable object manifest and component draft using IDs such as P1-IMG1 / P1-TXT1 / P1-CHR1 / P1-PNL1, plus an object-map preview
 5. Visual route, character/persona settings, and exact text list
 6. Component prompts or a final image-generation prompt
 7. Ask me whether to generate the final scrapbook image, generate components first, export the prompt pack, or open the GUI

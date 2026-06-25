@@ -4,7 +4,7 @@ Use this for full creation requests. The goal is a controllable agent-led author
 
 ## Flow
 
-`materials -> sufficiency check -> focused questions or labeled defaults -> memory extraction -> page form -> editable object manifest -> visual route -> style/character bible -> component draft -> confirmation -> prompt pack, direct generation, or GUI project -> QA -> revision contract`
+`materials -> sufficiency check -> focused questions or labeled defaults -> memory extraction -> page form -> editable object manifest -> visual route -> style/character bible -> component draft -> low-fidelity layout/object-map preview -> confirmation -> prompt pack, direct generation, or GUI project -> QA -> revision contract`
 
 ## Step 0: Decide How Much To Ask
 
@@ -81,7 +81,27 @@ Also draft the visible components before final image generation:
 
 When the user wants staged control, present these components for confirmation or revision before generating the final scrapbook page.
 
-## Step 6: Generate, Export, Or Prepare Iteration
+## Step 6: Generate A Low-Fidelity Planning Preview
+
+After the page form, zones, visual route, and object manifest are clear, create a visual planning preview when an image-generation tool/API is available. This preview is part of planning, not the final artwork, so do not ask the user to approve final generation before making it unless they opted out of previews.
+
+Generate one concise planning-board image by default:
+
+- left side: rough page layout sketch showing the chosen page format, major zones, relative scale, flow, and visual rhythm.
+- right side or overlay layer: editable object map with visible IDs such as `P1-IMG1`, `P1-TXT1`, `P1-CHR1`, `P1-PNL1`, `P1-STK1`, and `P1-BG1`.
+- style: low-fidelity scrapbook wireframe, loose pencil/marker sketch, colored blocks, tape outlines, arrows, dashed boxes, placeholder thumbnails, no polished final art.
+- text: large object IDs only; keep exact user-facing captions outside the preview when text fidelity matters.
+- privacy: use generic silhouettes or blank photo placeholders unless the user explicitly provided and approved references for preview use.
+
+Use this prompt shape for the preview:
+
+```text
+Create a low-fidelity planning-board preview for a [aspect ratio] travel scrapbook page. This is not final artwork. Show a rough scrapbook layout sketch plus an editable object map. Include large readable object IDs: [ID list]. Use simple placeholder photo frames, comic panel boxes, title/date zone, caption cards, map/ticket scraps, decorative sticker slots, arrows, tape outlines, and paper texture blocks. Keep the composition readable and useful for layout review. Do not render exact long captions; keep text labels short and large. Do not invent real ticket details or private faces.
+```
+
+If image generation is unavailable, output this preview prompt and a compact text fallback. Do not stop at a pure prose layout description when image generation is available.
+
+## Step 7: Generate, Export, Or Prepare Iteration
 
 After the component draft is clear, choose the next step:
 

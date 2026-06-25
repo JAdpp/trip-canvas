@@ -37,6 +37,7 @@ features:
   support_public_safe_generic_characters: true
   support_prompt_only_mode: true
   support_image_generation_when_available: true
+  support_low_fidelity_layout_object_map_preview: true
   support_local_web_gui: true
   support_guided_questioning: true
   support_component_review: true
@@ -57,7 +58,7 @@ gui:
   image_generation_endpoint: "/api/generate-image"
   capabilities:
     - "material library"
-    - "page preview"
+    - "low-fidelity layout and object-map preview"
     - "editable object manifest editor"
     - "page-level image prompt builder"
     - "component prompt and object review workflow"
